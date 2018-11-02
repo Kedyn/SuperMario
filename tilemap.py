@@ -6,6 +6,8 @@ from tile import Tile
 class TileMap:
     def __init__(self, screen):
         self.screen = screen
+        self.last_first_tile_x = -1
+        self.last_first_tile_y = -1
 
     def load_map(self, file):
         with open(file) as f:
@@ -35,7 +37,28 @@ class TileMap:
 
             self.tiles.append(row_contents)
 
+            self.__visible_tiles = []
+
+    def update(self, x, y):
+        tile_x = int(x / self.__tile_map['tile_width'])
+        tile_y = int(y / self.__tile_map['tile_height'])
+
+        if tile_x + self.tiles_x > len(self.tiles[0]):
+            tile_x = len(self.tiles[0]) - self.tiles_x
+
+        if tile_y + self.tiles_y > len(self.tiles):
+            tile_y = len(self.tiles) - self.tiles_y
+
+        if tile_x != self.last_first_tile_x or \
+                tile_y != self.last_first_tile_y:
+            self.__visible_tiles = []
+            for i in range(tile_y, tile_y + self.tiles_y):
+                for j in range(tile_x, tile_x + self.tiles_x):
+                    self.__visible_tiles.append(self.tiles[i][j])
+
+        self.last_first_tile_x = tile_x
+        self.last_first_tile_y = tile_y
+
     def render(self):
-        for tiles in self.tiles:
-            for tile in tiles:
-                tile.render()
+        for tile in self.__visible_tiles:
+            tile.render()

@@ -13,6 +13,7 @@ pygame.display.set_caption("Test")
 tile_map = TileMap(screen)
 
 tile_map.load_map("level1.json")
+tile_map.update(0, 0)
 
 while True:
     for event in pygame.event.get():
