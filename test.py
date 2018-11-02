@@ -6,13 +6,13 @@ from tilemap import TileMap
 
 pygame.init()
 
-screen = pygame.display.set_mode((300, 200))
+screen = pygame.display.set_mode((1280, 1024))
 
 pygame.display.set_caption("Test")
 
 tile_map = TileMap(screen)
 
-tile_map.load_map("level1.json")
+tile_map.load_map("tile_map.json")
 
 while True:
     for event in pygame.event.get():
