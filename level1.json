@@ -15,6 +15,6 @@
     ],
     "images": {
         "0": [],
-        "1": ["square"]
+        "1": ["images/consumables/coin.gif"]
     }
 }

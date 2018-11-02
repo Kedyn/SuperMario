@@ -7,21 +7,21 @@ class Tile:
         self.tile_type = tile_type
 
         self.images = []
-        '''
-        for image in images:
-            pygame_image = pygame.image.load(image)
 
-            self.images.append(pygame.transform.scale(pygame_image,
-                                                      (width, height)))
-        '''
+        for image in images:
+            if image:
+                pygame_image = pygame.image.load(image)
+
+                self.images.append(pygame.transform.scale(pygame_image,
+                                                          (width, height)))
+
         self.rect = pygame.Rect(j * height, i * width, width, height)
 
         self.image = None
 
         if images:
-            self.image = images[0]
+            self.image = self.images[0]
 
     def render(self):
         if self.image:
-            self.screen.fill((0, 100, 200), self.rect)
-            # self.screen.blit(self.image, self.rect)
+            self.screen.blit(self.image, self.rect)
