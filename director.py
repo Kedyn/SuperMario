@@ -15,7 +15,7 @@ class Director:
         self.quit = False
 
         self.regular_text_color = (255, 255, 255)
-        self.special_text_color = (255, 255, 0)
+        self.special_text_color = (255, 0, 0)
 
     def loop(self):
         if self.scene is not None:

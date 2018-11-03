@@ -22,6 +22,8 @@ class Tile:
         if images:
             self.image = self.images[0]
 
-    def render(self):
+    def render(self, x, y):
         if self.image:
-            self.screen.blit(self.image, self.rect)
+            rect = pygame.Rect(self.rect.x - x, self.rect.y - y,
+                               self.rect.width, self.rect.height)
+            self.screen.blit(self.image, rect)
