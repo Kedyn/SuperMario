@@ -7,7 +7,7 @@ title = 'moveTrial'
 
 """player properties"""
 PLAYER_ACC = 0.6
-PLAYER_FRICTION = -0.09
+PLAYER_FRICTION = -0.08
 PLAYER_GRAVITY = 0.9
 
 """define some colors"""
