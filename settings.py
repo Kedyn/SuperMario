@@ -9,6 +9,7 @@ title = 'moveTrial'
 PLAYER_ACC = 0.6
 PLAYER_FRICTION = -0.08
 PLAYER_GRAVITY = 0.9
+PLAYER_JUMP = 18
 
 """define some colors"""
 WHITE = (255, 255, 255)

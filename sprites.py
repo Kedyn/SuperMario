@@ -36,14 +36,21 @@ class Player(pg.sprite.Sprite):
 
         self.standing_left = [pg.image.load('images/small_mario/smallMarioStandLeft.gif')]
 
+        self.right_reverse = [pg.image.load('images/small_mario/smallMarioRightReverse.gif')]
+
+    def jump_cut(self):
+        if self.jumping:
+            if self.vel.y < -1:
+                self.vel.y = -1
+
     def jump(self):
         # Jump only if standing on a platform
         self.rect.x += 1
         hits = pg.sprite.spritecollide(self, self.game.platforms, False)
         self.rect.x -= 1
-
-        if hits:  # this removes double jump
-            self.vel.y = - 18
+        if hits and not self.jumping:  # this removes double jump
+            self.jumping = True
+            self.vel.y = -PLAYER_JUMP
 
     def update(self):
         self.animate()
@@ -56,10 +63,17 @@ class Player(pg.sprite.Sprite):
 
         # apply friction
         self.acc.x += self.vel.x * PLAYER_FRICTION
+
         self.vel += self.acc
         if abs(self.vel.x) < 0.1:
                 self.vel.x = 0
         self.pos += self.vel + 0.5 * self.acc
+
+        # wrap around the sides of the screen
+        if self.pos.x > screen_width + self.rect.width / 2:
+            self.pos.x = 0 - self.rect.width / 2
+        if self.pos.x < 0 - self.rect.width / 2:
+            self.pos.x = screen_width + self.rect.width / 2
 
         self.rect.midbottom = self.pos
 
@@ -69,9 +83,10 @@ class Player(pg.sprite.Sprite):
             self.walking = True
         else:
             self.walking = False
+
         # show walk animation
         if self.walking:
-            if now - self.last_update > 75: # speed of animation
+            if now - self.last_update > 75:  # speed of animation
                 self.last_update = now
                 self.current_frame = (self.current_frame + 1) % len(self.walking_right)
                 bottom = self.rect.bottom
@@ -81,6 +96,8 @@ class Player(pg.sprite.Sprite):
                     self.image = self.walking_left[self.current_frame]
                 self.rect = self.image.get_rect()
                 self.rect.bottom = bottom
+            print('walking')
+
         # idle animation
         if not self.jumping and not self.walking:
             if now - self.last_update > 200:
