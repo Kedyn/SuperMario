@@ -4,12 +4,11 @@ from tile import Tile
 
 
 class TileMap:
-    def __init__(self, screen):
+    def __init__(self, file, screen):
         self.screen = screen
         self.last_first_tile_x = -1
         self.last_first_tile_y = -1
 
-    def load_map(self, file):
         with open(file) as f:
             self.__tile_map = json.load(f)
 

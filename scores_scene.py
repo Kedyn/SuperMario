@@ -32,17 +32,17 @@ class ScoresScene(Scene):
 
         self.high_scores = []
 
-        score_rect = pygame.Rect(0, 300, 100, 30)
+        score_rect = pygame.Rect(0, 180, 100, 30)
 
         score_rect.centerx = self.director.screen.get_rect().centerx
 
         for score in high_scores:
             if score:
-                score_text = Text(score_rect, 50,
+                score_text = Text(score_rect, 30,
                                   self.director.special_text_color,
                                   self.director.screen, score)
                 self.high_scores.append(score_text)
-                score_rect.y += 50
+                score_rect.y += 40
 
     def mousebuttondown(self, button, point):
         self.mouse_on = None
