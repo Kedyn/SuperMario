@@ -98,9 +98,11 @@ class Player(pg.sprite.Sprite):
                 if self.vel.y < 0:
                     print(self.walking)
                     self.image = self.jump_right
+                    self.jumping = False
                 #   END OF MOON WALK BLOCK
-                else:
+                elif self.vel.x < 0:
                     self.image = self.walking_left[self.current_frame]
+
                 self.rect = self.image.get_rect()
                 self.rect.bottom = bottom
             print('walking')
