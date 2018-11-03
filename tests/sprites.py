@@ -17,7 +17,7 @@ class Player(pg.sprite.Sprite):
         # self.image.fill(YELLOW)
         self.rect = self.image.get_rect()
         self.rect.center = (screen_width/2, screen_height/2)
-        self.pos = vec(screen_width/2, screen_height/2)
+        self.pos = vec(screen_width/2, screen_height/2)  # starting position
         self.vel = vec(0, 0)
         self.acc = vec(0, 0)
 
@@ -36,14 +36,22 @@ class Player(pg.sprite.Sprite):
 
         self.standing_left = [pg.image.load('images/small_mario/smallMarioStandLeft.gif')]
 
+        self.right_reverse = [pg.image.load('images/small_mario/smallMarioRightReverse.gif')]
+
+    def jump_cut(self):
+        if self.jumping:
+            if self.vel.y < -1:
+                self.vel.y = -1
+
     def jump(self):
         # Jump only if standing on a platform
         self.rect.x += 1
         hits = pg.sprite.spritecollide(self, self.game.platforms, False)
         self.rect.x -= 1
-
-        if hits:  # this removes double jump
-            self.vel.y = - 18
+        if hits and not self.jumping:  # this removes double jump
+            self.jumping = True
+            self.image = self.jump_right  # idle but jumping
+            self.vel.y = -PLAYER_JUMP
 
     def update(self):
         self.animate()
@@ -56,10 +64,17 @@ class Player(pg.sprite.Sprite):
 
         # apply friction
         self.acc.x += self.vel.x * PLAYER_FRICTION
+
         self.vel += self.acc
-        if abs(self.vel.x) < 0.1:
+        if abs(self.vel.x) < 0.5:
                 self.vel.x = 0
         self.pos += self.vel + 0.5 * self.acc
+
+        # wrap around the sides of the screen
+        if self.pos.x > screen_width + self.rect.width / 2:
+            self.pos.x = 0 - self.rect.width / 2
+        if self.pos.x < 0 - self.rect.width / 2:
+            self.pos.x = screen_width + self.rect.width / 2
 
         self.rect.midbottom = self.pos
 
@@ -69,18 +84,29 @@ class Player(pg.sprite.Sprite):
             self.walking = True
         else:
             self.walking = False
+
         # show walk animation
         if self.walking:
-            if now - self.last_update > 75: # speed of animation
+            if now - self.last_update > 75:  # speed of animation
                 self.last_update = now
                 self.current_frame = (self.current_frame + 1) % len(self.walking_right)
                 bottom = self.rect.bottom
                 if self.vel.x > 0:
                     self.image = self.walking_right[self.current_frame]
-                else:
+
+                # THIS BLOCK OF CODE STRAIGHT UP MAKING HIM MOONWALK!!! WTF#################
+                if self.vel.y < 0:
+                    print(self.walking)
+                    self.image = self.jump_right
+                    self.jumping = False
+                #   END OF MOON WALK BLOCK
+                elif self.vel.x < 0:
                     self.image = self.walking_left[self.current_frame]
+
                 self.rect = self.image.get_rect()
                 self.rect.bottom = bottom
+            print('walking')
+
         # idle animation
         if not self.jumping and not self.walking:
             if now - self.last_update > 200:
