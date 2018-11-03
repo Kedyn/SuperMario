@@ -17,7 +17,7 @@ class Player(pg.sprite.Sprite):
         # self.image.fill(YELLOW)
         self.rect = self.image.get_rect()
         self.rect.center = (screen_width/2, screen_height/2)
-        self.pos = vec(screen_width/2, screen_height/2)
+        self.pos = vec(screen_width/2, screen_height/2)  # starting position
         self.vel = vec(0, 0)
         self.acc = vec(0, 0)
 
@@ -50,6 +50,7 @@ class Player(pg.sprite.Sprite):
         self.rect.x -= 1
         if hits and not self.jumping:  # this removes double jump
             self.jumping = True
+            self.image = self.jump_right  # idle but jumping
             self.vel.y = -PLAYER_JUMP
 
     def update(self):
@@ -65,7 +66,7 @@ class Player(pg.sprite.Sprite):
         self.acc.x += self.vel.x * PLAYER_FRICTION
 
         self.vel += self.acc
-        if abs(self.vel.x) < 0.1:
+        if abs(self.vel.x) < 0.5:
                 self.vel.x = 0
         self.pos += self.vel + 0.5 * self.acc
 
@@ -92,6 +93,12 @@ class Player(pg.sprite.Sprite):
                 bottom = self.rect.bottom
                 if self.vel.x > 0:
                     self.image = self.walking_right[self.current_frame]
+
+                # THIS BLOCK OF CODE STRAIGHT UP MAKING HIM MOONWALK!!! WTF#################
+                if self.vel.y < 0:
+                    print(self.walking)
+                    self.image = self.jump_right
+                #   END OF MOON WALK BLOCK
                 else:
                     self.image = self.walking_left[self.current_frame]
                 self.rect = self.image.get_rect()
