@@ -80,7 +80,7 @@ class Enemy(Sprite):
 
     def death(self):
         if self.alive:
-            pygame.mixer.music.load('sound\stomp.ogg')
+            pygame.mixer.music.load('assets/sound/stomp.ogg')
             pygame.mixer.music.play(0)
 
         self.alive = False
