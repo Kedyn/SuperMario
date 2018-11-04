@@ -80,7 +80,7 @@ class Enemy(Sprite):
 
     def death(self):
         if self.alive:
-            pygame.mixer.music.load('sound\stomp.ogg')
+            pygame.mixer.music.load('assets/sound/stomp.ogg')
             pygame.mixer.music.play(0)
 
         self.alive = False
@@ -92,7 +92,7 @@ class Enemy(Sprite):
 
     def shell_hit(self):
         if not self.shell_sound:
-            pygame.mixer.music.load('sound\kick.ogg')
+            pygame.mixer.music.load('assets/sound/kick.ogg')
             pygame.mixer.music.play(0)
             self.shell_sound = True
         current = pygame.time.get_ticks()
