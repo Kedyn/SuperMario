@@ -1,5 +1,6 @@
 from scene import Scene
 from level import Level
+from mario import Mario
 
 
 class GameScene(Scene):
@@ -10,14 +11,22 @@ class GameScene(Scene):
 
         self.level1 = Level('assets/levels/level1.json', director.screen)
 
-    def update(self):
-        self.level1.update()
+        self.level = self.level1
 
-        if self.level1.done:
+    def keydown(self, key):
+        self.level.keydown(key)
+
+    def keyup(self, key):
+        self.level.keyup(key)
+
+    def update(self):
+        self.level.update()
+
+        if self.level.done:
             # should move to next level or return to the menu screen
             pass
 
     def render(self):
         self.director.screen.fill(self.background)
 
-        self.level1.render()
+        self.level.render()

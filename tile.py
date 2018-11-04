@@ -2,7 +2,7 @@ import pygame
 
 
 class Tile:
-    def __init__(self, screen, i, j, width, height, tile_type, images=None):
+    def __init__(self, screen, i, j, width, height, tile_type, images=[]):
         self.screen = screen
         self.tile_type = tile_type
 
