@@ -14,9 +14,9 @@ class Level:
         self.__tile_map.mario.keyup(key)
 
     def update(self):
-        self.__tile_map.update()
-
         self.__tile_map.mario.update()
+
+        self.__tile_map.update()
 
     def render(self):
         self.__tile_map.render()

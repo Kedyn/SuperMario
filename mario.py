@@ -9,6 +9,11 @@ class Mario:
 
         self.direction_x = 0
 
+        self.__visible_tiles = []
+
+    def set_visible_tiles(self, visible_tiles):
+        self.__visible_tiles = visible_tiles
+
     def keydown(self, key):
         if key == pygame.K_LEFT:
             self.direction_x = -1
