@@ -1,6 +1,5 @@
 from scene import Scene
 from level import Level
-from mario import Mario
 
 
 class GameScene(Scene):

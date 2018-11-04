@@ -28,5 +28,8 @@ class Mario:
     def update(self):
         self.tile.rect.x += self.direction_x
 
-    def render(self):
-        self.tile.screen.blit(self.tile.image, self.tile.rect)
+    def render(self, x, y):
+        rect = pygame.Rect(self.tile.rect.x - x, self.tile.rect.y - y,
+                           self.tile.rect.width, self.tile.rect.height)
+
+        self.tile.screen.blit(self.tile.image, rect)

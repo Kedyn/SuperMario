@@ -20,5 +20,3 @@ class Level:
 
     def render(self):
         self.__tile_map.render()
-
-        self.__tile_map.mario.render()

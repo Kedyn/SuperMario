@@ -1,4 +1,5 @@
 import json
+import pygame
 
 from tile import Tile
 from mario import Mario
@@ -7,125 +8,87 @@ from mario import Mario
 class TileMap:
     def __init__(self, file, screen):
         self.screen = screen
-        self.last_first_tile_x = -1
-        self.last_first_tile_y = -1
 
         with open(file) as f:
-            self.__tile_map = json.load(f)
+            self.__info = json.load(f)
 
-        self.map = self.__tile_map['map']
+        self.tile = pygame.Rect(0, 0, self.__info['tile_width'],
+                                self.__info['tile_height'])
 
-        width = self.__tile_map['tile_width']
-        height = self.__tile_map['tile_height']
+        self.camera = pygame.Rect(0, 0, self.screen.get_rect().width,
+                                  self.screen.get_rect().height)
 
-        self.width = self.screen.get_rect().width
-        self.height = self.screen.get_rect().height
+        width = self.tile.width
+        height = self.tile.height
 
-        self.tiles_x = int(self.width / width)
-        self.tiles_y = int(self.height / height)
+        self.visible_tiles_x = int(self.tile.width / width)
+        self.visible_tiles_y = int(self.tile.height / height)
 
         self.tiles = []
 
         self.mario = None
 
-        mario = self.__tile_map['mario']
+        mario = self.__info['mario']
 
-        for row, data_row in enumerate(self.map):
+        for row, data_row in enumerate(self.__info['map']):
             row_contents = []
 
             for col, data_col in enumerate(data_row):
                 if data_col is mario:
-                    self.mario = Mario(self.screen, row, col, width,
+                    self.mario = Mario(screen, row, col, width,
                                        height,
-                                       self.__tile_map['images'][data_col])
+                                       self.__info['images'][data_col])
                 else:
-                    if self.__tile_map['images'][data_col]:
-                        row_contents.append(Tile(self.screen, row, col, width,
+                    if self.__info['images'][data_col]:
+                        row_contents.append(Tile(screen, row, col, width,
                                                  height, data_col,
-                                                 self.__tile_map['images']
+                                                 self.__info['images']
                                                  [data_col]))
                     else:
-                        row_contents.append(Tile(self.screen, row, col, width,
+                        row_contents.append(Tile(screen, row, col, width,
                                                  height, data_col))
 
             self.tiles.append(row_contents)
 
-            self.__visible_tiles = []
+        self.total_tiles_x = len(self.tiles[0])
+        self.total_tiles_y = len(self.tiles)
+
+        self.total_width = self.total_tiles_x * width
+        self.total_height = self.total_tiles_y * height
+
+        self.__visible_tiles = []
 
         self.update()
 
     def update(self):
-        width = self.__tile_map['tile_width']
-        height = self.__tile_map['tile_height']
+        self.camera.centerx = self.mario.tile.rect.centerx
 
-        total_tiles_x = len(self.tiles[0])
-        total_tiles_y = len(self.tiles)
+        if self.camera.left < 0:
+            self.camera.left = 0
+        elif self.camera.right > self.total_width:
+            self.camera.right = self.total_width
 
-        total_width = total_tiles_x * width
-        total_height = total_tiles_y * height
+        min_x = int(self.camera.left / self.tile.width)
+        max_x = min(int(self.camera.right / self.tile.width),
+                    self.total_tiles_x - 1)
+        min_y = 0
+        max_y = self.total_tiles_y
 
-        x = self.mario.tile.rect.x + self.mario.tile.rect.width - \
-            (self.width / 2)
-        y = self.mario.tile.rect.y + self.mario.tile.rect.height - \
-            (self.height / 2)
+        self.__visible_tiles = []
 
-        if x < 0:
-            x = 0
-        elif x > total_width - (self.width / 2):
-            x = total_width - self.width
+        for i in range(min_y, max_y):
+            for j in range(min_x, max_x):
+                self.__visible_tiles.append(self.tiles[i][j])
 
-        if y < 0:
-            y = 0
-        elif y > total_height - (self.height / 2):
-            y = total_height - self.height
-
-        tile_x = int(x / width)
-        tile_y = int(y / height)
-
-        if tile_x + self.tiles_x > total_tiles_x:
-            tile_x = total_tiles_x - self.tiles_x
-
-        if tile_x < 0:
-            tile_x = 0
-
-        if tile_y + self.tiles_y > total_tiles_y:
-            tile_y = total_tiles_y - self.tiles_y
-
-        if tile_y < 0:
-            tile_y = 0
-
-        if tile_x != self.last_first_tile_x or \
-                tile_y != self.last_first_tile_y:
-            max_y = tile_y + self.tiles_y
-            max_x = tile_x + self.tiles_x
-
-            if max_y > total_tiles_y:
-                max_y = total_tiles_y
-
-            if max_x > total_tiles_x:
-                max_x = total_tiles_x
-
-            self.__visible_tiles = []
-            for i in range(tile_y, max_y):
-                for j in range(tile_x, max_x):
-                    self.__visible_tiles.append(self.tiles[i][j])
-
-            self.mario.set_visible_tiles(self.__visible_tiles)
-
-        self.last_first_tile_x = tile_x
-        self.last_first_tile_y = tile_y
+        self.mario.set_visible_tiles(self.__visible_tiles)
 
     def render(self):
-        # x = self.mario.tile.rect.centerx
-        # y = self.mario.tile.rect.y
-        first_tile = self.__visible_tiles[0]
-
-        # if x > first_tile.rect.x:
-        x = first_tile.rect.x
-        # if y > first_tile.rect.y:
-        y = first_tile.rect.y
+        x = self.camera.left
+        y = self.camera.top
 
         self.screen.fill((0, 0, 0))
         for tile in self.__visible_tiles:
             if tile:
                 tile.render(x, y)
+
+        self.mario.render(x, y)
