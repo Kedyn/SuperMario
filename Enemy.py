@@ -9,9 +9,9 @@ class Enemy(Sprite):
         self.enemy_type = enemy_type
 
         if enemy_type == "Goomba":
-            self.surface = pygame.image.load('images/enemies/goomba/goomba1.gif')
+            self.surface = pygame.image.load('assets/images/enemies/goomba/goomba1.gif')
         elif enemy_type == "Koopa":
-            self.surface = pygame.image.load('images/enemies/koopa/koopa1left.gif')
+            self.surface = pygame.image.load('assets/images/enemies/koopa/koopa1left.gif')
 
         self.rect = self.surface.get_rect()
         self.rect.x = xpos
@@ -45,11 +45,11 @@ class Enemy(Sprite):
         if current - self.animate_tick > 300:
             self.animate_tick = current
             if self.frame == 0:
-                self.surface = pygame.image.load('images/enemies/goomba/goomba1.gif')
+                self.surface = pygame.image.load('assets/images/enemies/goomba/goomba1.gif')
                 self.frame += 1
                 return
             if self.frame == 1:
-                self.surface = pygame.image.load('images/enemies/goomba/goomba2.gif')
+                self.surface = pygame.image.load('assets/images/enemies/goomba/goomba2.gif')
                 self.frame = 0
                 return
 
@@ -58,11 +58,11 @@ class Enemy(Sprite):
         if current - self.animate_tick > 300:
             self.animate_tick = current
             if self.frame == 0:
-                self.surface = pygame.image.load('images/enemies/koopa/koopa1left.gif')
+                self.surface = pygame.image.load('assets/images/enemies/koopa/koopa1left.gif')
                 self.frame += 1
                 return
             if self.frame == 1:
-                self.surface = pygame.image.load('images/enemies/koopa/koopa2left.gif')
+                self.surface = pygame.image.load('assets/images/enemies/koopa/koopa2left.gif')
                 self.frame = 0
                 return
 
@@ -86,9 +86,9 @@ class Enemy(Sprite):
         self.alive = False
 
         if self.enemy_type == "Goomba":
-            self.surface = self.surface = pygame.image.load('images/enemies/goomba/goombaDead.gif')
+            self.surface = self.surface = pygame.image.load('assets/images/enemies/goomba/goombaDead.gif')
         elif self.enemy_type == "Koopa":
-            self.surface = self.surface = pygame.image.load('images/enemies/koopa/shell.gif')
+            self.surface = self.surface = pygame.image.load('assets/images/enemies/koopa/shell.gif')
 
     def shell_hit(self):
         if not self.shell_sound:
