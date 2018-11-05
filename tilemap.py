@@ -56,9 +56,9 @@ class TileMap:
         self.__visible_tiles = []
 
         mario = self.__info['mario']
-        self.mario = Mario(screen, mario['x'], mario['y'], mario['images'])
+        self.mario = Mario(screen, mario['x'], mario['y'], self.camera,
+                           mario['images'])
         self.mario.set_max_position(self.total_width, self.total_height)
-        self.mario.set_visible_tiles(self.__visible_tiles)
 
         for enemy in self.__info['enemies']:
             new_enemy = Enemy(screen, enemy['x'], enemy['y'],
@@ -94,6 +94,11 @@ class TileMap:
         for i in range(min_y, max_y):
             for j in range(min_x, max_x):
                 self.__visible_tiles.append(self.tiles[i][j])
+
+        self.mario.set_visible_tiles(self.__visible_tiles)
+
+        for enemy in self.enemies:
+            enemy.set_visible_tiles(self.__visible_tiles)
 
     def render(self):
         x = self.camera.left

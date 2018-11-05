@@ -4,7 +4,10 @@ from tile import Tile
 
 
 class Mario:
-    def __init__(self, screen, x, y, images=[]):
+    def __init__(self, screen, x, y, camera, images=[]):
+        self.camera = camera
+        print(camera)
+
         self.tile = Tile(screen, 0, 0, '', images)
 
         self.tile.rect.x = x
@@ -53,6 +56,11 @@ class Mario:
 
         self.tile.rect.x += self.velocity.x
         self.tile.rect.y += self.velocity.y
+
+        if self.tile.rect.left < self.camera.left:
+            self.tile.rect.left = self.camera.left
+        elif self.tile.rect.right > self.camera.right:
+            self.tile.rect.right = self.camera.right
 
         if self.velocity.x == 0:
             self.tile.image = self.tile.images[0]
