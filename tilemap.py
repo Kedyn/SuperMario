@@ -67,8 +67,8 @@ class TileMap:
 
             self.enemies.append(new_enemy)
 
-        self.last_min_tile_x = -1
-        self.last_min_tile_y = -1
+        self.last_camera_x = -1
+        self.last_camera_y = -1
 
         self.update()
 
@@ -91,8 +91,8 @@ class TileMap:
         min_y = 0
         max_y = self.total_tiles_y
 
-        if self.last_min_tile_x != min_x or \
-                self.last_min_tile_y != min_y:
+        if self.last_camera_x != self.camera.x or \
+                self.last_camera_y != self.camera.y:
             self.__visible_tiles = []
 
             for i in range(min_y, max_y):
@@ -105,8 +105,8 @@ class TileMap:
             for enemy in self.enemies:
                 enemy.set_visible_tiles(self.__visible_tiles)
 
-            self.last_min_tile_x = min_y
-            self.last_min_tile_y = min_y
+        self.last_camera_x = self.camera.x
+        self.last_camera_y = self.camera.y
 
         self.mario.update()
 
