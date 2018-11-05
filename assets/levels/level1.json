@@ -1,34 +1,177 @@
 {
-    "tile_width": 48,
-    "tile_height": 48,
+    "tile_width": 32,
+    "tile_height": 32,
     "map": [
-        ".......................................................................................................................................................................",
-        ".......................................................................................................................................................................",
-        ".......................................................................................................................................................................",
-        ".......................................................................................................................................................................",
-        "................................................................................G.G....................................................................................",
-        "......................?.........................................................BBBBBBBB...............................................................................",
-        ".......................................................................................................................................................................",
-        ".......................................................................................................................................................................",
-        "................................................................I......................................................................................................",
-        "................?...B!B?B....................................................B!B.......................................................................................",
-		"..............................................|/.........|/............................................................................................................",
-		"......................................|/......|/.........|/............................................................................................................",
-		"...M..................G.....|/........|/G.....|/...GG....|/............................................................................................................",
-		"111111111111111111111111111111111111111111111111111111111111111111111..111111111111111...111111111111111111111111111111111111111111111111111111111111111111111111111111",
-		"111111111111111111111111111111111111111111111111111111111111111111111..111111111111111...111111111111111111111111111111111111111111111111111111111111111111111111111111"
+        "................................................................................................................................................................................................................................",
+        "................................................................................................................................................................................................................................",
+        "...................DEF.............DEEF............................DEF..............DEEF...........................DEF..............DEF............................DEF..............DEEF..............J..............DEF........",
+        "........DEF........ABC.....DEEEF...ABBC................DEF.........ABC.....DEEEF....ABBC................DEF........ABC.....DEEEF....ABC.................DEF........ABC.....DEEEF....ABBC..............K.DEF..........ABC...DEEEF",
+        "........ABC................ABBBC.......................ABC.................ABBBC........................ABC................ABBBC........................ABC................ABBBC......................K.ABC................ABBBC",
+        "......................?.........................................................99999999...999?..............!...........999....9??9........................................................22........K.........................",
+        "...........................................................................................................................................................................................222........K.........................",
+        "..........................................................................................................................................................................................2222........K.........................",
+        "................................................................Z........................................................................................................................22222........K....PPP..................",
+        "................?...9!9?9.....................[].........[]..................9!9..............?.....9S....?..?..?.....9..........99......2..2..........22..2............99?9............222222........K....TMU..................",
+		"..5...................................[]......LR..5......LR.......................................5.....................................22..22....5...222..22..........................2222222....5...K...PQQQP.................",
+		".364.............5..........[]........LR......LR.364.....LR.....5................................364..............5....................222..222..364.2222..222...5.[]..............[].22222222...364..K...MMOMM..5..............",
+        "36874......GHHHI364....GHI..LR........LR.GHHI.LR36874....LRGHHI364.....GHI...............GHHI...36874......GHHHI.364...GHI............2222HH2222368722222..2222I364LR..GHI.........LR222222222..36874.2...MMNMMI364...GHI.......",
+		"111111111111111111111111111111111111111111111111111111111111111111111..111111111111111...1111111111111111111111111111111111111111111111111111111111111111..111111111111111111111111111111111111111111111111111111111111111111111",
+		"111111111111111111111111111111111111111111111111111111111111111111111..111111111111111...1111111111111111111111111111111111111111111111111111111111111111..111111111111111111111111111111111111111111111111111111111111111111111"
     ],
     "images": {
         ".": [],
-        "1": ["assets/images/map_assets/floor/floorTile.gif"],
-		"?": ["assets/images/map_assets/mystery_box/mysteryBox1.gif"],
-		"!": ["assets/images/map_assets/mystery_box/mysteryBox1.gif"],
-		"B": ["assets/images/map_assets/hit_tile/hitTile.gif"],
-		"|": ["assets/images/map_assets/pipes/half_left_side_pipe.gif"],
-		"/": ["assets/images/map_assets/pipes/half_right_side_pipe.gif"],
-        "G": ["assets/images/enemies/goomba/goomba1.gif"],
-        "I": [],
-        "M": ["assets/images/small_mario/smallMarioStandRight.gif"]
+        "1": ["assets/images/map_assets/static/floor/rock_floor.png"],
+        "2": ["assets/images/map_assets/static/floor/metal_floor.png"],
+        "3": ["assets/images/map_assets/static/mountain/left_mountain.png"],
+        "4": ["assets/images/map_assets/static/mountain/right_mountain.png"],
+        "5": ["assets/images/map_assets/static/mountain/top_mountain.png"],
+        "6": ["assets/images/map_assets/static/mountain/right_mountain_dots.png"],
+        "7": ["assets/images/map_assets/static/mountain/left_mountain_dots.png"],
+        "8": ["assets/images/map_assets/static/mountain/plain_mountain.png"],
+        "9": ["assets/images/map_assets/dynamic/bricks/orange_bricks.png"],
+        "A": ["assets/images/map_assets/static/cloud/left_bottom_cloud.png"],
+        "B": ["assets/images/map_assets/static/cloud/mid_bottom_cloud.png"],
+        "C": ["assets/images/map_assets/static/cloud/right_bottom_cloud.png"],
+        "D": ["assets/images/map_assets/static/cloud/left_top_cloud.png"],
+        "E": ["assets/images/map_assets/static/cloud/mid_top_cloud.png"],
+        "F": ["assets/images/map_assets/static/cloud/right_top_cloud.png"],
+        "G": ["assets/images/map_assets/static/bush/left_bush.png"],
+        "H": ["assets/images/map_assets/static/bush/mid_bush.png"],
+        "I": ["assets/images/map_assets/static/bush/right_bush.png"],
+        "J": ["assets/images/map_assets/dynamic/pole/top.png"],
+        "K": ["assets/images/map_assets/dynamic/pole/body.png"],
+        "M": ["assets/images/map_assets/static/castle/regular_bricks.png"],
+        "N": ["assets/images/map_assets/static/castle/entrance.png"],
+        "O": ["assets/images/map_assets/static/castle/top_entrance_bricks.png"],
+        "P": ["assets/images/map_assets/static/castle/top_bricks.png"],
+        "Q": ["assets/images/map_assets/static/castle/mid_top_bricks.png"],
+        "T": ["assets/images/map_assets/static/castle/left_bricks.png"],
+        "U": ["assets/images/map_assets/static/castle/right_bricks.png"],
+		"?": ["assets/images/map_assets/dynamic/mystery_box/mystery_box_bright.png","assets/images/map_assets/dynamic/mystery_box/mystery_box_normal.png","assets/images/map_assets/dynamic/mystery_box/mystery_box_dark.png"],
+		"!": ["assets/images/map_assets/dynamic/mystery_box/mystery_box_bright.png","assets/images/map_assets/dynamic/mystery_box/mystery_box_normal.png","assets/images/map_assets/dynamic/mystery_box/mystery_box_dark.png"],
+		"S": ["assets/images/map_assets/dynamic/mystery_box/mystery_box_bright.png","assets/images/map_assets/dynamic/mystery_box/mystery_box_normal.png","assets/images/map_assets/dynamic/mystery_box/mystery_box_dark.png"],
+        "L": ["assets/images/map_assets/static/pipes/pipe_vertical_left.png"],
+        "R": ["assets/images/map_assets/static/pipes/pipe_vertical_right.png"],
+        "[": ["assets/images/map_assets/static/pipes/pipe_vertical_left_opening.png"],
+        "]": ["assets/images/map_assets/static/pipes/pipe_vertical_right_opening.png"],
+        "Z": []
     },
-    "mario": "M"
+    "mario": {
+        "x": 90,
+        "y": 384,
+        "images": [
+            "assets/images/mario/small/standing.png",
+            "assets/images/mario/small/moving_one.png",
+            "assets/images/mario/small/moving_two.png",
+            "assets/images/mario/small/moving_three.png",
+            "assets/images/mario/small/turning.png",
+            "assets/images/mario/small/jumping.png",
+            "assets/images/mario/small/on_pole.png",
+            "assets/images/mario/small/dead.png"
+        ]
+    },
+    "enemies": [
+        {
+            "type": "goomba",
+            "x": 704,
+            "y": 386,
+            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+        },
+        {
+            "type": "goomba",
+            "x": 2560,
+            "y": 130,
+            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+        },
+        {
+            "type": "goomba",
+            "x": 2624,
+            "y": 130,
+            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+        },
+        {
+            "type": "goomba",
+            "x": 1280,
+            "y": 386,
+            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+        },
+        {
+            "type": "goomba",
+            "x": 1632,
+            "y": 386,
+            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+        },
+        {
+            "type": "goomba",
+            "x": 1696,
+            "y": 386,
+            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+        },
+        {
+            "type": "goomba",
+            "x": 3104,
+            "y": 386,
+            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+        },
+        {
+            "type": "goomba",
+            "x": 3168,
+            "y": 386,
+            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+        },
+        {
+            "type": "goomba",
+            "x": 3648,
+            "y": 386,
+            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+        },
+        {
+            "type": "goomba",
+            "x": 3712,
+            "y": 386,
+            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+        },
+        {
+            "type": "goomba",
+            "x": 3904,
+            "y": 386,
+            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+        },
+        {
+            "type": "goomba",
+            "x": 3968,
+            "y": 386,
+            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+        },
+        {
+            "type": "goomba",
+            "x": 4064,
+            "y": 386,
+            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+        },
+        {
+            "type": "goomba",
+            "x": 4128,
+            "y": 386,
+            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+        },
+        {
+            "type": "goomba",
+            "x": 5536,
+            "y": 386,
+            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+        },
+        {
+            "type": "goomba",
+            "x": 5600,
+            "y": 386,
+            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+        },
+        {
+            "type": "koopa",
+            "x": 3424,
+            "y": 369,
+            "images": ["assets/images/enemies/koopa/koopa1left.gif"]
+        }
+    ]
 }

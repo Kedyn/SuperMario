@@ -2,7 +2,7 @@ import pygame
 
 
 class Tile:
-    def __init__(self, screen, i, j, width, height, tile_type, images=[]):
+    def __init__(self, screen, i, j, tile_type, images=[]):
         self.screen = screen
         self.tile_type = tile_type
 
@@ -10,12 +10,18 @@ class Tile:
 
         for image in images:
             if image:
-                pygame_image = pygame.image.load(image)
+                self.images.append(pygame.image.load(image))
 
-                self.images.append(pygame.transform.scale(pygame_image,
-                                                          (width, height)))
+        width = 0
+        height = 0
 
-        self.rect = pygame.Rect(j * height, i * width, width, height)
+        if images:
+            rect = self.images[0].get_rect()
+
+            width = rect.width
+            height = rect.height
+
+        self.rect = pygame.Rect(j * width, i * height, width, height)
 
         self.image = None
 

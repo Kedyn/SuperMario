@@ -1,8 +1,10 @@
 import json
 import pygame
+import math
 
 from tile import Tile
 from mario import Mario
+from enemy import Enemy
 
 
 class TileMap:
@@ -34,21 +36,16 @@ class TileMap:
             row_contents = []
 
             for col, data_col in enumerate(data_row):
-                if data_col is mario:
-                    self.mario = Mario(screen, row, col, width,
-                                       height,
-                                       self.__info['images'][data_col])
-                else:
                     if self.__info['images'][data_col]:
-                        row_contents.append(Tile(screen, row, col, width,
-                                                 height, data_col,
+                        row_contents.append(Tile(screen, row, col, data_col,
                                                  self.__info['images']
                                                  [data_col]))
                     else:
-                        row_contents.append(Tile(screen, row, col, width,
-                                                 height, data_col))
+                        row_contents.append(Tile(screen, row, col, data_col))
 
             self.tiles.append(row_contents)
+
+        self.enemies = []
 
         self.total_tiles_x = len(self.tiles[0])
         self.total_tiles_y = len(self.tiles)
@@ -57,6 +54,18 @@ class TileMap:
         self.total_height = self.total_tiles_y * height
 
         self.__visible_tiles = []
+
+        mario = self.__info['mario']
+        self.mario = Mario(screen, mario['x'], mario['y'], mario['images'])
+        self.mario.set_max_position(self.total_width, self.total_height)
+
+        for enemy in self.__info['enemies']:
+            new_enemy = Enemy(screen, enemy['x'], enemy['y'],
+                              enemy['type'], enemy['images'])
+
+            new_enemy.set_max_position(self.total_width, self.total_height)
+
+            self.enemies.append(new_enemy)
 
         self.update()
 
@@ -68,9 +77,9 @@ class TileMap:
         elif self.camera.right > self.total_width:
             self.camera.right = self.total_width
 
-        min_x = int(self.camera.left / self.tile.width)
-        max_x = min(int(self.camera.right / self.tile.width),
-                    self.total_tiles_x - 1)
+        min_x = max(int(self.camera.left / self.tile.width) - 1, 0)
+        max_x = min(math.ceil(self.camera.right / self.tile.width),
+                    self.total_tiles_x)
         min_y = 0
         max_y = self.total_tiles_y
 
@@ -86,9 +95,12 @@ class TileMap:
         x = self.camera.left
         y = self.camera.top
 
-        self.screen.fill((0, 0, 0))
+        self.screen.fill((92, 150, 252))
         for tile in self.__visible_tiles:
             if tile:
                 tile.render(x, y)
+
+        for enemy in self.enemies:
+            enemy.render(x, y)
 
         self.mario.render(x, y)

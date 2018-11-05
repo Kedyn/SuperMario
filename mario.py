@@ -4,32 +4,67 @@ from tile import Tile
 
 
 class Mario:
-    def __init__(self, screen, i, j, width, height, images=[]):
-        self.tile = Tile(screen, i, j, width, height, '', images)
+    def __init__(self, screen, x, y, images=[]):
+        self.tile = Tile(screen, 0, 0, '', images)
+
+        self.tile.rect.x = x
+        self.tile.rect.y = y
 
         self.direction_x = 0
 
         self.__visible_tiles = []
 
+        self.velocity = pygame.Vector2(0, 0)
+
+        self.velocity_to_be_reached = pygame.Vector2(0, 0)
+
+        self.max_velocity = pygame.Vector2(1, 1)
+
+        self.ticks = pygame.time.get_ticks()
+
     def set_visible_tiles(self, visible_tiles):
         self.__visible_tiles = visible_tiles
 
+    def set_max_position(self, total_width, total_height):
+        self.total_width = total_width
+        self.total_height = total_height
+
     def keydown(self, key):
         if key == pygame.K_LEFT:
-            self.direction_x = -1
+            self.velocity_to_be_reached.x = self.max_velocity.x * -1
         elif key == pygame.K_RIGHT:
-            self.direction_x = 1
+            self.velocity_to_be_reached.x = self.max_velocity.x
 
     def keyup(self, key):
         if key == pygame.K_LEFT or \
                 key == pygame.K_RIGHT:
-            self.direction_x = 0
+            self.velocity_to_be_reached.x = 0
 
     def update(self):
-        self.tile.rect.x += self.direction_x
+        dt = pygame.time.get_ticks() - self.ticks
+        difference = self.velocity_to_be_reached.x - self.velocity.x
+
+        self.velocity.x = self.velocity_to_be_reached.x
+
+        if difference > dt:
+            self.velocity.x = self.velocity.x + dt
+        elif difference < -dt:
+            self.velocity.x = self.velocity.x - dt
+
+        self.tile.rect.x += self.velocity.x
+        self.tile.rect.y += self.velocity.y
+
+        if self.velocity.x == 0:
+            self.tile.image = self.tile.images[0]
+        else:
+            if self.tile.image is self.tile.images[2]:
+                self.tile.image = self.tile.images[3]
+            elif self.tile.image is self.tile.images[3]:
+                self.tile.image = self.tile.images[1]
+            else:
+                self.tile.image = self.tile.images[2]
+
+        self.ticks = pygame.time.get_ticks()
 
     def render(self, x, y):
-        rect = pygame.Rect(self.tile.rect.x - x, self.tile.rect.y - y,
-                           self.tile.rect.width, self.tile.rect.height)
-
-        self.tile.screen.blit(self.tile.image, rect)
+        self.tile.render(x, y)
