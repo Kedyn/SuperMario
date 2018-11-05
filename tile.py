@@ -2,7 +2,7 @@ import pygame
 
 
 class Tile:
-    def __init__(self, screen, i, j, width, height, tile_type, images=None):
+    def __init__(self, screen, i, j, width, height, tile_type, images=[]):
         self.screen = screen
         self.tile_type = tile_type
 
@@ -26,4 +26,5 @@ class Tile:
         if self.image:
             rect = pygame.Rect(self.rect.x - x, self.rect.y - y,
                                self.rect.width, self.rect.height)
+
             self.screen.blit(self.image, rect)
