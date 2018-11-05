@@ -12,8 +12,6 @@ class Mario:
 
         self.direction_x = 0
 
-        self.__visible_tiles = []
-
         self.velocity = pygame.Vector2(0, 0)
 
         self.velocity_to_be_reached = pygame.Vector2(0, 0)
@@ -34,6 +32,8 @@ class Mario:
             self.velocity_to_be_reached.x = self.max_velocity.x * -1
         elif key == pygame.K_RIGHT:
             self.velocity_to_be_reached.x = self.max_velocity.x
+        else:
+            print(len(self.__visible_tiles))
 
     def keyup(self, key):
         if key == pygame.K_LEFT or \
