@@ -58,7 +58,6 @@ class TileMap:
         mario = self.__info['mario']
         self.mario = Mario(screen, mario['x'], mario['y'], self.camera,
                            mario['images'])
-        self.mario.set_max_position(self.total_width, self.total_height)
 
         for enemy in self.__info['enemies']:
             new_enemy = Enemy(screen, enemy['x'], enemy['y'],
@@ -67,6 +66,9 @@ class TileMap:
             new_enemy.set_max_position(self.total_width, self.total_height)
 
             self.enemies.append(new_enemy)
+
+        self.last_min_tile_x = -1
+        self.last_min_tile_y = -1
 
         self.update()
 
@@ -89,16 +91,21 @@ class TileMap:
         min_y = 0
         max_y = self.total_tiles_y
 
-        self.__visible_tiles = []
+        if self.last_min_tile_x != min_x or \
+                self.last_min_tile_y != min_y:
+            self.__visible_tiles = []
 
-        for i in range(min_y, max_y):
-            for j in range(min_x, max_x):
-                self.__visible_tiles.append(self.tiles[i][j])
+            for i in range(min_y, max_y):
+                for j in range(min_x, max_x):
+                    self.__visible_tiles.append(self.tiles[i][j])
 
-        self.mario.set_visible_tiles(self.__visible_tiles)
+            self.mario.set_visible_tiles(self.__visible_tiles)
 
-        for enemy in self.enemies:
-            enemy.set_visible_tiles(self.__visible_tiles)
+            for enemy in self.enemies:
+                enemy.set_visible_tiles(self.__visible_tiles)
+
+            self.last_min_tile_x = min_y
+            self.last_min_tile_y = min_y
 
     def render(self):
         x = self.camera.left

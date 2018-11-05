@@ -6,7 +6,6 @@ from tile import Tile
 class Mario:
     def __init__(self, screen, x, y, camera, images=[]):
         self.camera = camera
-        print(camera)
 
         self.tile = Tile(screen, 0, 0, '', images)
 
@@ -25,10 +24,6 @@ class Mario:
 
     def set_visible_tiles(self, visible_tiles):
         self.__visible_tiles = visible_tiles
-
-    def set_max_position(self, total_width, total_height):
-        self.total_width = total_width
-        self.total_height = total_height
 
     def keydown(self, key):
         if key == pygame.K_LEFT:
@@ -63,14 +58,14 @@ class Mario:
             self.tile.rect.right = self.camera.right
 
         if self.velocity.x == 0:
-            self.tile.image = self.tile.images[0]
+            self.tile.image = self.tile.images["standing_right"]
         else:
-            if self.tile.image is self.tile.images[2]:
-                self.tile.image = self.tile.images[3]
-            elif self.tile.image is self.tile.images[3]:
-                self.tile.image = self.tile.images[1]
+            if self.tile.image is self.tile.images["moving_two_right"]:
+                self.tile.image = self.tile.images["moving_three_right"]
+            elif self.tile.image is self.tile.images["moving_three_right"]:
+                self.tile.image = self.tile.images["moving_one_right"]
             else:
-                self.tile.image = self.tile.images[2]
+                self.tile.image = self.tile.images["moving_two_right"]
 
         self.ticks = pygame.time.get_ticks()
 

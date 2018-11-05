@@ -60,13 +60,13 @@
         "x": 90,
         "y": 384,
         "images": [
-            "assets/images/mario/small/standing.png",
-            "assets/images/mario/small/moving_one.png",
-            "assets/images/mario/small/moving_two.png",
-            "assets/images/mario/small/moving_three.png",
-            "assets/images/mario/small/turning.png",
-            "assets/images/mario/small/jumping.png",
-            "assets/images/mario/small/on_pole.png",
+            "assets/images/mario/small/standing_right.png",
+            "assets/images/mario/small/moving_one_right.png",
+            "assets/images/mario/small/moving_two_right.png",
+            "assets/images/mario/small/moving_three_right.png",
+            "assets/images/mario/small/turning_right.png",
+            "assets/images/mario/small/jumping_right.png",
+            "assets/images/mario/small/on_pole_right.png",
             "assets/images/mario/small/dead.png"
         ]
     },
