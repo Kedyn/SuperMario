@@ -20,19 +20,13 @@ def run_game():
         koopa.blitme()
         pygame.display.flip()
         if goomba.rect.left < screenrect.left:
-            goomba.rect.x, goomba.rect.y = goomba.lastx, goomba.lasty
-            goomba.flip()
+            goomba.collide()
         elif goomba.rect.right > screenrect.right:
-            goomba.rect.x, goomba.rect.y = goomba.lastx, goomba.lasty
-            goomba.flip()
-
-
+            goomba.collide()
         if koopa.rect.left < screenrect.left:
-            koopa.rect.x, koopa.rect.y = koopa.lastx, koopa.lasty
-            koopa.flip()
+            koopa.collide()
         elif koopa.rect.right > screenrect.right:
-            koopa.rect.x, koopa.rect.y = koopa.lastx, koopa.lasty
-            koopa.flip()
+            koopa.collide()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

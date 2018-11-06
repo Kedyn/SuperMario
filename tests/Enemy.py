@@ -1,7 +1,6 @@
 import pygame
 from pygame.sprite import Sprite
 
-
 class Enemy(Sprite):
     def __init__(self, screen, xpos, ypos, enemy_type):
         super(Enemy, self).__init__()
@@ -12,10 +11,10 @@ class Enemy(Sprite):
         self.xpos, self.ypos = xpos, ypos
         self.enemy_type = enemy_type
 
-        if enemy_type == "goomba":
-            self.surface = pygame.image.load('assets/images/enemies/goomba/goomba1.gif')
-        elif enemy_type == "koopa":
-            self.surface = pygame.image.load('assets/images/enemies/koopa/koopa1left.gif')
+        if enemy_type == "Goomba":
+            self.surface = pygame.image.load('../assets/images/enemies/goomba/goomba1.gif')
+        elif enemy_type == "Koopa":
+            self.surface = pygame.image.load('../assets/images/enemies/koopa/koopa1left.gif')
 
         self.rect = self.surface.get_rect()
         self.rect.x = xpos
@@ -32,6 +31,7 @@ class Enemy(Sprite):
         self.shell_sound = False
         self.text_y = self.rect.y
         self.text_first = True
+
 
     def collide(self):
         self.rect.x, self.rect.y = self.lastx, self.lasty
@@ -56,6 +56,7 @@ class Enemy(Sprite):
                 self.screen.blit(self.text, (self.rect.x, self.text_y))
                 self.text_y -= 0.25
 
+
     def flip(self):
         self.direction *= -1
 
@@ -64,11 +65,11 @@ class Enemy(Sprite):
         if current - self.animate_tick > 300:
             self.animate_tick = current
             if self.frame == 0:
-                self.surface = pygame.image.load('assets/images/enemies/goomba/goomba1.gif')
+                self.surface = pygame.image.load('../assets/images/enemies/goomba/goomba1.gif')
                 self.frame += 1
                 return
             if self.frame == 1:
-                self.surface = pygame.image.load('assets/images/enemies/goomba/goomba2.gif')
+                self.surface = pygame.image.load('../assets/images/enemies/goomba/goomba2.gif')
                 self.frame = 0
                 return
 
@@ -77,11 +78,11 @@ class Enemy(Sprite):
         if current - self.animate_tick > 300:
             self.animate_tick = current
             if self.frame == 0:
-                self.surface = pygame.image.load('assets/images/enemies/koopa/koopa1left.gif')
+                self.surface = pygame.image.load('../assets/images/enemies/koopa/koopa1left.gif')
                 self.frame += 1
                 return
             if self.frame == 1:
-                self.surface = pygame.image.load('assets/images/enemies/koopa/koopa2left.gif')
+                self.surface = pygame.image.load('../assets/images/enemies/koopa/koopa2left.gif')
                 self.frame = 0
                 return
 
@@ -99,19 +100,19 @@ class Enemy(Sprite):
 
     def death(self):
         if self.alive:
-            pygame.mixer.music.load('assets/sound/stomp.ogg')
+            pygame.mixer.music.load('../assets/sound/stomp.ogg')
             pygame.mixer.music.play(0)
 
         self.alive = False
 
         if self.enemy_type == "Goomba":
-            self.surface = self.surface = pygame.image.load('assets/images/enemies/goomba/goombaDead.gif')
+            self.surface = self.surface = pygame.image.load('../assets/images/enemies/goomba/goombaDead.gif')
         elif self.enemy_type == "Koopa":
-            self.surface = self.surface = pygame.image.load('assets/images/enemies/koopa/shell.gif')
+            self.surface = self.surface = pygame.image.load('../assets/images/enemies/koopa/shell.gif')
 
     def shell_hit(self):
         if not self.shell_sound:
-            pygame.mixer.music.load('assets/sound/kick.ogg')
+            pygame.mixer.music.load('../assets/sound/kick.ogg')
             pygame.mixer.music.play(0)
             self.shell_sound = True
         current = pygame.time.get_ticks()
@@ -122,3 +123,6 @@ class Enemy(Sprite):
     def hit_shell(self):
         if self.enemy_type == "Koopa":
             self.shell_active = True
+
+
+
