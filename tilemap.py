@@ -4,7 +4,7 @@ import math
 
 from tile import Tile
 from mario import Mario
-from enemy import Enemy
+from Enemy import Enemy
 
 
 class TileMap:
