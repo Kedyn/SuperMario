@@ -24,6 +24,7 @@ class Enemy:
         self.total_height = total_height
 
     def update(self):
+        # test
         pass
 
     def render(self, x, y):

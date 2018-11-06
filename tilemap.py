@@ -5,6 +5,7 @@ import math
 from tile import Tile
 from mario import Mario
 from enemy import Enemy
+from interactive_tile import InteractiveTile
 
 
 class TileMap:
@@ -27,19 +28,37 @@ class TileMap:
         self.visible_tiles_y = int(self.tile.height / height)
 
         self.tiles = []
+        self.interacting_tiles = []
 
         self.mario = None
 
         mario = self.__info['mario']
+
+        interacting_tiles = self.__info['interacting_tiles']
+        empty_tile = self.__info['empty_tile']
 
         for row, data_row in enumerate(self.__info['map']):
             row_contents = []
 
             for col, data_col in enumerate(data_row):
                     if self.__info['images'][data_col]:
-                        row_contents.append(Tile(screen, row, col, data_col,
-                                                 self.__info['images']
-                                                 [data_col]))
+                        if data_col in interacting_tiles:
+                            self.interacting_tiles.append(InteractiveTile(
+                                                                screen,
+                                                                row,
+                                                                col,
+                                                                data_col,
+                                                                self.__info
+                                                                ['images']
+                                                                [data_col]
+                                                          ))
+                            row_contents.append(Tile(screen, row, col,
+                                                empty_tile))
+                        else:
+                            row_contents.append(Tile(screen, row, col,
+                                                     data_col,
+                                                     self.__info['images']
+                                                     [data_col]))
                     else:
                         row_contents.append(Tile(screen, row, col, data_col))
 
@@ -110,6 +129,9 @@ class TileMap:
 
         self.mario.update()
 
+        for tile in self.interacting_tiles:
+            tile.update()
+
     def render(self):
         x = self.camera.left
         y = self.camera.top
@@ -121,5 +143,8 @@ class TileMap:
 
         for enemy in self.enemies:
             enemy.render(x, y)
+
+        for tile in self.interacting_tiles:
+            tile.render(x, y)
 
         self.mario.render(x, y)
