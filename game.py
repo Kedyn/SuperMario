@@ -6,7 +6,7 @@ from scores_scene import ScoresScene
 
 class Game:
     def __init__(self):
-        self.director = Director((480, 480), 'Super Mario')
+        self.director = Director((1280, 480), 'Super Mario')
 
         self.menu_scene = MenuScene(self.director)
         self.game_scene = GameScene(self.director)
