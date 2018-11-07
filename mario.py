@@ -20,14 +20,15 @@ class Mario:
         self.ticks = pygame.time.get_ticks()
 
         #  stuff i added
-        self.mario_gravity = 0.2
+        self.mario_gravity = 0.3
         self.mario_acceleration = 0.6
         self.mario_friction = -0.08
-        self.mario_jump_height = 18
+        self.mario_jump_height = 9.3
         self.keys = []
         self.acc = vec(0, self.mario_gravity)  # mario acceleration
         self.pos = vec(x, y - 100)
-
+        self.jumping = False
+        self.jump_count = 0
         self.tile.rect.x = self.pos.x
         self.tile.rect.y = self.pos.y
 
@@ -37,8 +38,26 @@ class Mario:
     def keydown(self, key):
         self.keys.append(key)
 
+        # stuff i added
+        self.jumping = False
+        if key == pygame.K_SPACE:
+            print('jump = ' + str(self.jump_count))
+            if self.jump_count <= 10:
+                self.jump()
+
     def keyup(self, key):
+        self.jumping = True
         self.keys.remove(key)
+        if key == pygame.K_SPACE:
+            self.jump_cut()
+
+    def jump_cut(self):
+        if self.jumping:
+            if self.velocity.y < -1:
+                self.velocity.y = -1
+
+    def jump(self):
+        self.velocity.y = -self.mario_jump_height
 
     def check_falling(self, tiles):
         for tile in tiles:
@@ -118,7 +137,7 @@ class Mario:
 
         self.check_falling(self.__visible_tiles)
 
-        print(str(self.pos.x) + ' ' + str(self.pos.y))
+        # print(str(self.pos.x) + ' ' + str(self.pos.y))
 
         # image/animation handling
         if self.velocity.x == 0:
