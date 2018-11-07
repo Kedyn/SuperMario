@@ -5,7 +5,7 @@ from text import Text
 
 
 class MenuScene(Scene):
-    def __init__(self, director, background=(69, 193, 230)):
+    def __init__(self, director, background=(92, 150, 252)):
         super().__init__(director)
 
         self.background = background
@@ -32,8 +32,10 @@ class MenuScene(Scene):
 
         self.mouse_on = None
 
-        self.game_logo = pygame.image.load("assets/images/menu_assets/logo.png")
-        self.game_logo = pygame.transform.scale(self.game_logo, (500, 300))
+        self.game_logo = pygame.image.load(
+            "assets/images/menu_assets/logo.png"
+            )
+        self.game_logo = pygame.transform.scale(self.game_logo, (400, 300))
 
     def mousebuttondown(self, button, point):
         self.mouse_on = None
@@ -59,7 +61,7 @@ class MenuScene(Scene):
     def render(self):
         self.director.screen.fill(self.background)
 
-        #self.logo.render()
+        # self.logo.render()
 
         if self.mouse_on is not None:
             self.mouse_on.color = self.director.special_text_color
@@ -68,5 +70,5 @@ class MenuScene(Scene):
         self.play.render()
         self.high_score.render()
 
-        self.screen.blit(self.game_logo, (385, 10))
+        self.screen.blit(self.game_logo, (40, 10))
 

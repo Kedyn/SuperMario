@@ -4,8 +4,8 @@ from tile import Tile
 
 
 class Enemy:
-    def __init__(self, screen, x, y, enemy_type, images=[]):
-        self.tile = Tile(screen, 0, 0, '', images)
+    def __init__(self, screen, x, y, enemy_type, width, height, images=[]):
+        self.tile = Tile(screen, 0, 0, '', width, height, images)
 
         self.enemy_type = enemy_type
 
@@ -24,8 +24,11 @@ class Enemy:
         self.total_height = total_height
 
     def update(self):
-        # test
-        pass
+        if self.enemy_type == "goomba":
+            if self.tile.image is self.tile.images["goomba_two"]:
+                self.tile.image = self.tile.images["goomba_one"]
+            else:
+                self.tile.image = self.tile.images["goomba_two"]
 
     def render(self, x, y):
         self.tile.render(x, y)

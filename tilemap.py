@@ -48,19 +48,24 @@ class TileMap:
                                                                 row,
                                                                 col,
                                                                 data_col,
+                                                                width,
+                                                                height,
                                                                 self.__info
                                                                 ['images']
                                                                 [data_col]
                                                           ))
                             row_contents.append(Tile(screen, row, col,
-                                                empty_tile))
+                                                empty_tile, width, height))
                         else:
                             row_contents.append(Tile(screen, row, col,
                                                      data_col,
+                                                     width,
+                                                     height,
                                                      self.__info['images']
                                                      [data_col]))
                     else:
-                        row_contents.append(Tile(screen, row, col, data_col))
+                        row_contents.append(Tile(screen, row, col, data_col,
+                                                 width, height))
 
             self.tiles.append(row_contents)
 
@@ -76,11 +81,13 @@ class TileMap:
 
         mario = self.__info['mario']
         self.mario = Mario(screen, mario['x'], mario['y'], self.camera,
-                           self.__info['colliding_tiles'], mario['images'])
+                           self.__info['colliding_tiles'], width, height,
+                           mario['images'])
 
         for enemy in self.__info['enemies']:
             new_enemy = Enemy(screen, enemy['x'], enemy['y'],
-                              enemy['type'], enemy['images'])
+                              enemy['type'], width, height,
+                              enemy['images'])
 
             new_enemy.set_max_position(self.total_width, self.total_height)
 
@@ -128,6 +135,9 @@ class TileMap:
         self.last_camera_y = self.camera.y
 
         self.mario.update()
+
+        for enemy in self.enemies:
+            enemy.update()
 
         for tile in self.interacting_tiles:
             tile.update()

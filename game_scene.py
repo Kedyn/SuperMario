@@ -9,8 +9,10 @@ class GameScene(Scene):
         self.background = background
 
         self.level1 = Level('assets/levels/level1.json', director.screen)
+        self.level1_sub_level = Level('assets/levels/level1_sub_level.json',
+                                      director.screen)
 
-        self.level = self.level1
+        self.level = self.level1_sub_level
 
     def keydown(self, key):
         self.level.keydown(key)

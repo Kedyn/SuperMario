@@ -84,104 +84,104 @@
         {
             "type": "goomba",
             "x": 704,
-            "y": 386,
-            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+            "y": 384,
+            "images": ["assets/images/enemies/goomba/goomba_one.png","assets/images/enemies/goomba/goomba_two.png","assets/images/enemies/goomba/goomba_dead.png"]
         },
         {
             "type": "goomba",
             "x": 2560,
-            "y": 130,
-            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+            "y": 128,
+            "images": ["assets/images/enemies/goomba/goomba_one.png","assets/images/enemies/goomba/goomba_two.png","assets/images/enemies/goomba/goomba_dead.png"]
         },
         {
             "type": "goomba",
             "x": 2624,
-            "y": 130,
-            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+            "y": 128,
+            "images": ["assets/images/enemies/goomba/goomba_one.png","assets/images/enemies/goomba/goomba_two.png","assets/images/enemies/goomba/goomba_dead.png"]
         },
         {
             "type": "goomba",
             "x": 1280,
-            "y": 386,
-            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+            "y": 384,
+            "images": ["assets/images/enemies/goomba/goomba_one.png","assets/images/enemies/goomba/goomba_two.png","assets/images/enemies/goomba/goomba_dead.png"]
         },
         {
             "type": "goomba",
             "x": 1632,
-            "y": 386,
-            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+            "y": 384,
+            "images": ["assets/images/enemies/goomba/goomba_one.png","assets/images/enemies/goomba/goomba_two.png","assets/images/enemies/goomba/goomba_dead.png"]
         },
         {
             "type": "goomba",
             "x": 1696,
-            "y": 386,
-            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+            "y": 384,
+            "images": ["assets/images/enemies/goomba/goomba_one.png","assets/images/enemies/goomba/goomba_two.png","assets/images/enemies/goomba/goomba_dead.png"]
         },
         {
             "type": "goomba",
             "x": 3104,
-            "y": 386,
-            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+            "y": 384,
+            "images": ["assets/images/enemies/goomba/goomba_one.png","assets/images/enemies/goomba/goomba_two.png","assets/images/enemies/goomba/goomba_dead.png"]
         },
         {
             "type": "goomba",
             "x": 3168,
-            "y": 386,
-            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+            "y": 384,
+            "images": ["assets/images/enemies/goomba/goomba_one.png","assets/images/enemies/goomba/goomba_two.png","assets/images/enemies/goomba/goomba_dead.png"]
         },
         {
             "type": "goomba",
             "x": 3648,
-            "y": 386,
-            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+            "y": 384,
+            "images": ["assets/images/enemies/goomba/goomba_one.png","assets/images/enemies/goomba/goomba_two.png","assets/images/enemies/goomba/goomba_dead.png"]
         },
         {
             "type": "goomba",
             "x": 3712,
-            "y": 386,
-            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+            "y": 384,
+            "images": ["assets/images/enemies/goomba/goomba_one.png","assets/images/enemies/goomba/goomba_two.png","assets/images/enemies/goomba/goomba_dead.png"]
         },
         {
             "type": "goomba",
             "x": 3904,
-            "y": 386,
-            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+            "y": 384,
+            "images": ["assets/images/enemies/goomba/goomba_one.png","assets/images/enemies/goomba/goomba_two.png","assets/images/enemies/goomba/goomba_dead.png"]
         },
         {
             "type": "goomba",
             "x": 3968,
-            "y": 386,
-            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+            "y": 384,
+            "images": ["assets/images/enemies/goomba/goomba_one.png","assets/images/enemies/goomba/goomba_two.png","assets/images/enemies/goomba/goomba_dead.png"]
         },
         {
             "type": "goomba",
             "x": 4064,
-            "y": 386,
-            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+            "y": 384,
+            "images": ["assets/images/enemies/goomba/goomba_one.png","assets/images/enemies/goomba/goomba_two.png","assets/images/enemies/goomba/goomba_dead.png"]
         },
         {
             "type": "goomba",
             "x": 4128,
-            "y": 386,
-            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+            "y": 384,
+            "images": ["assets/images/enemies/goomba/goomba_one.png","assets/images/enemies/goomba/goomba_two.png","assets/images/enemies/goomba/goomba_dead.png"]
         },
         {
             "type": "goomba",
             "x": 5536,
-            "y": 386,
-            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+            "y": 384,
+            "images": ["assets/images/enemies/goomba/goomba_one.png","assets/images/enemies/goomba/goomba_two.png","assets/images/enemies/goomba/goomba_dead.png"]
         },
         {
             "type": "goomba",
             "x": 5600,
-            "y": 386,
-            "images": ["assets/images/enemies/goomba/goomba1.gif"]
+            "y": 384,
+            "images": ["assets/images/enemies/goomba/goomba_one.png","assets/images/enemies/goomba/goomba_two.png","assets/images/enemies/goomba/goomba_dead.png"]
         },
         {
             "type": "koopa",
             "x": 3424,
             "y": 369,
-            "images": ["assets/images/enemies/koopa/koopa1left.gif"]
+            "images": ["assets/images/enemies/koopa/koopa_left_one.png","assets/images/enemies/koopa/koopa_left_two.png","assets/images/enemies/koopa/koopa_right_one.png","assets/images/enemies/koopa/koopa_right_two.png","assets/images/enemies/koopa/shell_without_legs.png","assets/images/enemies/koopa/shell_with_legs.png"]
         }
     ]
 }

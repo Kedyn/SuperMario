@@ -6,11 +6,12 @@ vec = pygame.math.Vector2
 
 
 class Mario:
-    def __init__(self, screen, x, y, camera, collding_tiles, images=[]):
+    def __init__(self, screen, x, y, camera, collding_tiles, width, height,
+                 images=[]):
         self.camera = camera
         self.colliding_tiles = collding_tiles
 
-        self.tile = Tile(screen, 0, 0, '', images)  # this is mario
+        self.tile = Tile(screen, 0, 0, '', width, height, images)  # this is mario
 
         self.direction_x = 0
 

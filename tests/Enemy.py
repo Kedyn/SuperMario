@@ -1,6 +1,7 @@
 import pygame
 from pygame.sprite import Sprite
 
+
 class Enemy(Sprite):
     def __init__(self, screen, xpos, ypos, enemy_type):
         super(Enemy, self).__init__()
@@ -31,7 +32,6 @@ class Enemy(Sprite):
         self.shell_sound = False
         self.text_y = self.rect.y
         self.text_first = True
-
 
     def collide(self):
         self.rect.x, self.rect.y = self.lastx, self.lasty
@@ -123,6 +123,3 @@ class Enemy(Sprite):
     def hit_shell(self):
         if self.enemy_type == "Koopa":
             self.shell_active = True
-
-
-

@@ -1,0 +1,62 @@
+{
+    "tile_width": 32,
+    "tile_height": 32,
+    "map": [
+        "................",
+        "................",
+        "9...9999999....L",
+        "9..............L",
+        "9..............L",
+        "9....CCCCC.....L",
+        "9..............L",
+        "9...CCCCCCC....L",
+        "9..............L",
+        "9...CCCCCCC....L",
+        "9...9999999....L",
+        "9...9999999.._TM",
+        "9...9999999..=BP",
+        "1111111111111111",
+        "1111111111111111"
+    ],
+    "colliding_tiles": "1L=_M",
+    "interacting_tiles": "C",
+    "empty_tile": ".",
+    "images": {
+        ".": [],
+        "1": ["assets/images/map_assets/static/floor/rock_floor.png"],
+        "9": ["assets/images/map_assets/dynamic/bricks/orange_bricks.png"],
+        "L": ["assets/images/map_assets/static/pipes/pipe_vertical_left.png"],
+        "R": ["assets/images/map_assets/static/pipes/pipe_vertical_right.png"],
+        "_": ["assets/images/map_assets/static/pipes/pipe_horizontal_top_opening.png"],
+        "=": ["assets/images/map_assets/static/pipes/pipe_horizontal_bottom_opening.png"],
+        "T": ["assets/images/map_assets/static/pipes/pipe_horizontal_top.png"],
+        "B": ["assets/images/map_assets/static/pipes/pipe_horizontal_bottom.png"],
+        "M": ["assets/images/map_assets/static/pipes/pipe_horizontal_to_vertical_top.png"],
+        "P": ["assets/images/map_assets/static/pipes/pipe_horizontal_to_vertical_bottom.png"],
+        "C": ["assets/images/consumables/coin.gif"]
+    },
+    "mario": {
+        "x": 32,
+        "y": 64,
+        "images": [
+            "assets/images/mario/small/standing_right.png",
+            "assets/images/mario/small/moving_one_right.png",
+            "assets/images/mario/small/moving_two_right.png",
+            "assets/images/mario/small/moving_three_right.png",
+            "assets/images/mario/small/turning_right.png",
+            "assets/images/mario/small/jumping_right.png",
+            "assets/images/mario/small/on_pole_right.png",
+            "assets/images/mario/small/standing_left.png",
+            "assets/images/mario/small/moving_one_left.png",
+            "assets/images/mario/small/moving_two_left.png",
+            "assets/images/mario/small/moving_three_left.png",
+            "assets/images/mario/small/turning_left.png",
+            "assets/images/mario/small/jumping_left.png",
+            "assets/images/mario/small/on_pole_left.png",
+            "assets/images/mario/small/dead.png"
+        ]
+    },
+    "enemies": [
+        
+    ]
+}

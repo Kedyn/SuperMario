@@ -17,6 +17,10 @@ class Director:
         self.regular_text_color = (255, 255, 255)
         self.special_text_color = (255, 0, 0)
 
+        self.previous_time = pygame.time.get_ticks()
+
+        self.fps = 1000 / 60
+
     def loop(self):
         if self.scene is not None:
             while not self.quit:
@@ -30,8 +34,12 @@ class Director:
                     elif event.type == pygame.MOUSEBUTTONDOWN:
                         self.scene.mousebuttondown(event.button, event.pos)
 
-                self.scene.update()
-                self.scene.render()
+                if self.fps <= pygame.time.get_ticks() - \
+                        self.previous_time:
+                    self.scene.update()
+                    self.scene.render()
+
+                    self.previous_time = pygame.time.get_ticks()
 
                 pygame.display.flip()
 

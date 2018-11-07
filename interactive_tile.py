@@ -2,8 +2,8 @@ from tile import Tile
 
 
 class InteractiveTile:
-    def __init__(self, screen, row, col, tile_type, images=[]):
-        self.tile = Tile(screen, row, col, tile_type, images)
+    def __init__(self, screen, row, col, tile_type, width, height, images=[]):
+        self.tile = Tile(screen, row, col, tile_type, width, height, images)
 
     def update(self):
         if self.tile.tile_type is '?':
