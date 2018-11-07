@@ -32,7 +32,7 @@ class Mario:
         self.mario_jump_height = 9.3
         self.keys = []
         self.acc = vec(0, self.mario_gravity)  # mario acceleration
-        self.pos = vec(x, y - 100)
+        self.pos = vec(x, y)
         self.jumping = False
         self.jump_count = 0
         self.tile.rect.x = self.pos.x
