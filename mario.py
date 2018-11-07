@@ -13,24 +13,20 @@ class Mario:
 
         self.tile = Tile(screen, 0, 0, '', width, height, images)  # this is mario
 
-        self.direction_x = 0
-
         self.velocity = vec(0, 0)  # velocity of mario
 
         self.velocity_to_be_reached = vec(0, 0)
 
-        self.max_velocity = vec(1, 1)
-
         self.ticks = pygame.time.get_ticks()
 
         #  stuff i added
-        self.mario_gravity = 0.001
-        self.mario_acceleration = 0.6
-        self.mario_friction = -0.08
+        self.mario_gravity = 0.2
+        self.mario_acceleration = 0.5
+        self.mario_friction = -0.008
         self.mario_jump_height = 18
         self.keys = []
-        self.acc = vec(0, 0)  # mario acceleration
-        self.pos = vec(x, y - 10)
+        self.acc = vec(0, self.mario_gravity)  # mario acceleration
+        self.pos = vec(x, y - 100)
 
         self.tile.rect.x = self.pos.x
         self.tile.rect.y = self.pos.y
@@ -44,11 +40,37 @@ class Mario:
     def keyup(self, key):
         self.keys.remove(key)
 
-    def update(self):
+    def check_falling(self, tiles):
+        for tile in tiles:
+            if tile.tile_type in self.colliding_tiles:
+                if self.tile.rect.colliderect(tile.rect):
+                    if self.tile.rect.bottom >= tile.rect.top:
+                        self.velocity.y = 0
+                        self.pos.y = tile.rect.top - self.tile.rect.height
+                        self.tile.rect.bottom = tile.rect.top
+                        break
 
-        dt = pygame.time.get_ticks() - self.ticks
-        difference = self.velocity_to_be_reached.x - self.velocity.x
+        if self.velocity.x != 0:
+            for tile in tiles:
+                if tile.tile_type in self.colliding_tiles:
+                    if self.tile.rect.bottom != tile.rect.top:
+                        if self.tile.rect.colliderect(tile.rect):
+                            if self.velocity.x > 0 and \
+                                    tile.rect.x > self.tile.rect.x:
+                                self.tile.rect.right = tile.rect.left
+                                self.velocity.x = 0
+                                self.pos.x = tile.rect.left - \
+                                    self.tile.rect.width
+                            elif self.velocity.x < 0 and \
+                                    tile.rect.x < self.tile.rect.x:
+                                self.tile.rect.left = tile.rect.right
+                                self.velocity.x = 0
+                                self.pos.x = tile.rect.right
+
+    def update(self):
         prev_velocity_x = self.velocity.x
+
+        self.acc.x = 0
 
         # stuff i added
         for key in self.keys:
@@ -56,8 +78,6 @@ class Mario:
                 self.acc.x = -self.mario_acceleration
             if key == pygame.K_RIGHT:
                 self.acc.x = self.mario_acceleration
-
-        self.acc = vec(0, self.mario_gravity)
 
         # apply friction
         self.acc.x += self.velocity.x * self.mario_friction
@@ -89,41 +109,16 @@ class Mario:
         # elif difference < -dt:
         #     self.velocity.x = self.velocity.x - dt
 
-
         if self.tile.rect.left < self.camera.left:
             self.tile.rect.left = self.camera.left
             self.velocity.x = 0
-            self.velocity_to_be_reached.x = 0
         elif self.tile.rect.right > self.camera.right:
             self.tile.rect.right = self.camera.right
             self.velocity.x = 0
-            self.velocity_to_be_reached.x = 0
 
-        # handles collision
-        if self.velocity.x != 0:
-            for tile in self.__visible_tiles:
-                if tile.tile_type in self.colliding_tiles:
-                    if self.tile.rect.bottom != tile.rect.top:
-                        if self.tile.rect.colliderect(tile.rect):
-                            if self.velocity.x > 0 and \
-                                    tile.rect.x > self.tile.rect.x:
-                                self.tile.rect.right = tile.rect.left
-                                self.velocity.x = 0
-                                self.velocity_to_be_reached.x = 0
-                            elif self.velocity.x < 0 and \
-                                    tile.rect.x < self.tile.rect.x:
-                                self.tile.rect.left = tile.rect.right
-                                self.velocity.x = 0
-                                self.velocity_to_be_reached.x = 0
-        #if self.velocity.y > 0:
-        for tile in self.__visible_tiles:
-            if tile.tile_type in self.colliding_tiles:
-                if self.tile.rect.colliderect(tile.rect):
-                    if self.tile.rect.top >= tile.rect.top:
-                        print('collide')
-                        self.velocity.y = 0
-                        self.tile.rect.bottom = tile.rect.top
+        self.check_falling(self.__visible_tiles)
 
+        print(str(self.pos.x) + ' ' + str(self.pos.y))
 
         # image/animation handling
         if self.velocity.x == 0:
@@ -148,8 +143,6 @@ class Mario:
                     self.tile.image = self.tile.images["moving_one_left"]
                 else:
                     self.tile.image = self.tile.images["moving_two_left"]
-
-        self.ticks = pygame.time.get_ticks()
 
     def render(self, x, y):
         self.tile.render(x, y)
