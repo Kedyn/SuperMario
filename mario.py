@@ -21,8 +21,8 @@ class Mario:
 
         #  stuff i added
         self.mario_gravity = 0.2
-        self.mario_acceleration = 0.5
-        self.mario_friction = -0.008
+        self.mario_acceleration = 0.6
+        self.mario_friction = -0.08
         self.mario_jump_height = 18
         self.keys = []
         self.acc = vec(0, self.mario_gravity)  # mario acceleration
@@ -84,7 +84,7 @@ class Mario:
 
         # my version of handling movement
         self.velocity += self.acc
-        if abs(self.velocity.x) < 0.5:
+        if abs(self.velocity.x) < 0.55:
             self.velocity.x = 0
         self.pos += self.velocity + 0.5 * self.acc
 
