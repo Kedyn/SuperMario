@@ -46,11 +46,19 @@ class MenuScene(Scene):
         self.on_play = False
         self.on_highscore = False
 
+        self.theme_song = pygame.mixer.music.load("assets/sound/mario_theme_song.ogg")
+
+    def reset(self):
+        # play music
+        pygame.mixer.music.play(-1)
+
+
     def mousebuttondown(self, button, point):
         self.mouse_on = None
 
         if self.play.rect.collidepoint(point):
             self.director.set_scene("game")
+            self.reset()
         elif self.high_score.rect.collidepoint(point):
             self.director.set_scene("scores")
 
