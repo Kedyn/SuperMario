@@ -43,6 +43,10 @@ class TileMap:
 
         top_of_pole = self.__info['finish']
 
+        colliding_tiles_types = self.__info['colliding_tiles']
+
+        colliding_tiles = []
+
         for row, data_row in enumerate(self.__info['map']):
             row_contents = []
 
@@ -60,6 +64,9 @@ class TileMap:
                             head = row_contents[-1]
                             self.flag.rect.top = head.rect.bottom
                             self.flag.rect.right = head.rect.centerx
+
+                        if data_col in colliding_tiles_types:
+                            colliding_tiles.append(row_contents[-1])
                     else:
                         row_contents.append(Tile(screen, row, col, data_col,
                                                  width, height))
@@ -83,11 +90,13 @@ class TileMap:
 
             new_enemy.set_max_position(self.total_width, self.total_height)
 
+            new_enemy.set_visible_tiles(colliding_tiles)
+
             self.enemies.append(new_enemy)
 
         mario = self.__info['mario']
         self.mario = Mario(screen, mario['x'], mario['y'], self.camera,
-                           self.__info['colliding_tiles'], width, height,
+                           colliding_tiles_types, width, height,
                            self.enemies, mario['images'])
 
         self.last_camera_x = -1
@@ -124,9 +133,6 @@ class TileMap:
                         self.__visible_tiles.append(self.tiles[i][j])
 
             self.mario.set_visible_tiles(self.__visible_tiles)
-
-            for enemy in self.enemies:
-                enemy.set_visible_tiles(self.__visible_tiles)
 
         self.last_camera_x = self.camera.x
         self.last_camera_y = self.camera.y
