@@ -109,9 +109,12 @@ class Mario:
                         self.falling = False
                         self.jump_count = 0
                         break
-        # for enemy in self.enemies:
-        #    if enemy.tile.rect.colliderect(self.tile.rect):
-        #        print('enemy collide')
+        for enemy in self.enemies:
+            if enemy.tile.rect.colliderect(self.tile.rect):
+                if enemy.alive:
+                    self.velocity.y = -10
+                enemy.death()
+
 
     def update(self):
         prev_velocity_x = self.velocity.x
