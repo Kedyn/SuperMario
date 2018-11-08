@@ -1,9 +1,6 @@
-from tile import Tile
-
-
 class InteractiveTile:
-    def __init__(self, screen, row, col, tile_type, width, height, images=[]):
-        self.tile = Tile(screen, row, col, tile_type, width, height, images)
+    def __init__(self, tile):
+        self.tile = tile
 
     def update(self):
         if self.tile.tile_type is '?':
@@ -13,6 +10,3 @@ class InteractiveTile:
                 self.tile.image = self.tile.images['mystery_box_dark']
             else:
                 self.tile.image = self.tile.images['mystery_box_bright']
-
-    def render(self, x, y):
-        self.tile.render(x, y)

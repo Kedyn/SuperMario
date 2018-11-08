@@ -20,7 +20,6 @@
     ],
     "colliding_tiles": "1L=_M",
     "interacting_tiles": "C",
-    "empty_tile": ".",
     "images": {
         ".": [],
         "1": ["assets/images/map_assets/static/floor/rock_floor.png"],

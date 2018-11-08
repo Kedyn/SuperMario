@@ -11,10 +11,10 @@ Use interacting tiles and enemies for collision like visible tiles.
 
 class Mario:
     def __init__(self, screen, x, y, camera, colliding_tiles, width, height,
-                 interacting_tiles, enemies, images=[]):
+                 enemies, images=[]):
         self.camera = camera
         self.colliding_tiles = colliding_tiles
-        self.interacting_tiles = interacting_tiles
+        # self.interacting_tiles = interacting_tiles
         self.enemies = enemies
 
         self.tile = Tile(screen, 0, 0, '', width, height, images)  # this is mario
@@ -125,10 +125,12 @@ class Mario:
         self.tile.rect.x = self.pos.x
 
         self.check_horizontal_tiles(self.__visible_tiles)
+        # self.check_horizontal_tiles(self.interacting_tiles)
 
         self.tile.rect.y = self.pos.y
 
         self.check_falling(self.__visible_tiles)
+        # self.check_falling(self.interacting_tiles)
 
         """collision for y coordinate"""
         # if self.velocity.y > 0:
