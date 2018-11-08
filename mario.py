@@ -34,11 +34,12 @@ class Mario:
         self.acc = vec(0, self.mario_gravity)  # mario acceleration
         self.pos = vec(x, y)
         self.jumping = False
+        self.falling = False
         self.jump_count = 0
         self.tile.rect.x = self.pos.x
         self.tile.rect.y = self.pos.y
 
-        self.dead = False
+        self.he_dead = False
 
     def set_visible_tiles(self, visible_tiles):
         self.__visible_tiles = visible_tiles
@@ -87,7 +88,8 @@ class Mario:
                                 self.pos.x = tile.rect.right
                                 break
 
-    def check_falling(self, tiles):
+    def check_falling(self, tiles):  # falling collision
+
         for tile in tiles:
             if tile.tile_type in self.colliding_tiles:
                 if self.tile.rect.colliderect(tile.rect):
@@ -101,8 +103,8 @@ class Mario:
                         self.velocity.y = 0
                         self.pos.y = tile.rect.top - self.tile.rect.height
                         self.tile.rect.bottom = tile.rect.top
+                        self.falling = True
                         break
-
 
         # for enemy in self.enemies:
         #    if enemy.tile.rect.colliderect(self.tile.rect):
@@ -112,7 +114,9 @@ class Mario:
         prev_velocity_x = self.velocity.x
 
         self.acc.x = 0
+        self.falling = False
 
+        print('position is --->' + str(self.velocity))
         # stuff i added
         for key in self.keys:
             if key == pygame.K_LEFT:
@@ -132,39 +136,25 @@ class Mario:
         self.tile.rect.x = self.pos.x
 
         self.check_horizontal_tiles(self.__visible_tiles)
-        # self.check_horizontal_tiles(self.interacting_tiles)
 
         self.tile.rect.y = self.pos.y
 
         self.check_falling(self.__visible_tiles)
-        # self.check_falling(self.interacting_tiles)
+        print('is he falling? ---> ' + str(self.falling))
+        # create enemy collision here
 
-        """collision for y coordinate"""
-        # if self.velocity.y > 0:
-        #     hits = pygame.sprite.spritecollide(self.player, self.platforms, False)
-        #     if hits:
-        #         lowest = hits[0]
-        #         for hit in hits:
-        #             if hit.rect.bottom > lowest.rect.bottom:
-        #                 lowest = hit
-        #         if self.player.pos.y < lowest.rect.bottom:
-        #             self.player.pos.y = lowest.rect.top + .5  # the .5 is to make sure it is colliding w/ the floor
-        #             self.player.vel.y = 0
-        #             self.player.jumping = False
-
-        # if difference > dt:
-        #     self.velocity.x = self.velocity.x + dt
-        # elif difference < -dt:
-        #     self.velocity.x = self.velocity.x - dt
-
+        # camera stuff
         if self.tile.rect.left < self.camera.left:
             self.tile.rect.left = self.camera.left
             self.velocity.x = 0
         elif self.tile.rect.right > self.camera.right:
             self.tile.rect.right = self.camera.right
             self.velocity.x = 0
+        elif self.tile.rect.bottom > self.camera.bottom:
+            self.he_dead = True
+            print(str(self.he_dead))
 
-        # print(str(self.pos.x) + ' ' + str(self.pos.y))
+
 
         # image/animation handling
         if self.velocity.x == 0:
