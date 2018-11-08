@@ -1,6 +1,7 @@
 import pygame
 
 from scene import Scene
+from level import Level
 from text import Text
 
 
@@ -14,20 +15,18 @@ class MenuScene(Scene):
         text_rect = pygame.Rect(0, 20, 300, 140)
         text_rect.centerx = director.screen.get_rect().centerx
 
-        #self.logo = Text(text_rect, 140, director.regular_text_color,
-        #                 director.screen, "SUPER MARIO")
-
         menu_rect = pygame.Rect(0, 0, 100, 30)
 
         menu_rect.center = director.screen.get_rect().center
-        menu_rect.y = director.screen.get_rect().bottom - 150
+        menu_rect.y = 288
 
-        self.play = Text(menu_rect, 50, director.regular_text_color,
+        self.play = Text(menu_rect, 30, director.regular_text_color,
                          director.screen, "PLAY GAME")
 
-        menu_rect.y += 60
+        menu_rect.right = self.play.rect.right
+        menu_rect.y += 32
 
-        self.high_score = Text(menu_rect, 50, director.regular_text_color,
+        self.high_score = Text(menu_rect, 30, director.regular_text_color,
                                director.screen, "HIGH SCORES")
 
         self.mouse_on = None
@@ -35,7 +34,9 @@ class MenuScene(Scene):
         self.game_logo = pygame.image.load(
             "assets/images/menu_assets/logo.png"
             )
-        self.game_logo = pygame.transform.scale(self.game_logo, (400, 300))
+        self.game_logo = pygame.transform.scale(self.game_logo, (384, 192))
+
+        self.level = Level('assets/levels/level1.json', director.screen)
 
     def mousebuttondown(self, button, point):
         self.mouse_on = None
@@ -67,8 +68,9 @@ class MenuScene(Scene):
             self.mouse_on.color = self.director.special_text_color
             self.mouse_on.prep_img()
 
+        self.level.render()
+
         self.play.render()
         self.high_score.render()
 
-        self.screen.blit(self.game_logo, (40, 10))
-
+        self.screen.blit(self.game_logo, (64, 64))

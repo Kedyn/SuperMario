@@ -4,12 +4,18 @@ from tile import Tile
 
 vec = pygame.math.Vector2
 
+'''
+Use interacting tiles and enemies for collision like visible tiles.
+'''
+
 
 class Mario:
-    def __init__(self, screen, x, y, camera, collding_tiles, width, height,
-                 images=[]):
+    def __init__(self, screen, x, y, camera, colliding_tiles, width, height,
+                 interacting_tiles, enemies, images=[]):
         self.camera = camera
-        self.colliding_tiles = collding_tiles
+        self.colliding_tiles = colliding_tiles
+        self.interacting_tiles = interacting_tiles
+        self.enemies = enemies
 
         self.tile = Tile(screen, 0, 0, '', width, height, images)  # this is mario
 
@@ -20,16 +26,19 @@ class Mario:
         self.ticks = pygame.time.get_ticks()
 
         #  stuff i added
-        self.mario_gravity = 0.2
+        self.mario_gravity = 0.3
         self.mario_acceleration = 0.6
         self.mario_friction = -0.08
-        self.mario_jump_height = 18
+        self.mario_jump_height = 9.3
         self.keys = []
         self.acc = vec(0, self.mario_gravity)  # mario acceleration
-        self.pos = vec(x, y - 100)
-
+        self.pos = vec(x, y)
+        self.jumping = False
+        self.jump_count = 0
         self.tile.rect.x = self.pos.x
         self.tile.rect.y = self.pos.y
+
+        self.dead = False
 
     def set_visible_tiles(self, visible_tiles):
         self.__visible_tiles = visible_tiles
@@ -37,8 +46,26 @@ class Mario:
     def keydown(self, key):
         self.keys.append(key)
 
+        # stuff i added
+        self.jumping = False
+        if key == pygame.K_SPACE:
+            print('jump = ' + str(self.jump_count))
+            if self.jump_count <= 10:
+                self.jump()
+
     def keyup(self, key):
+        self.jumping = True
         self.keys.remove(key)
+        if key == pygame.K_SPACE:
+            self.jump_cut()
+
+    def jump_cut(self):
+        if self.jumping:
+            if self.velocity.y < -1:
+                self.velocity.y = -1
+
+    def jump(self):
+        self.velocity.y = -self.mario_jump_height
 
     def check_falling(self, tiles):
         for tile in tiles:
@@ -66,6 +93,10 @@ class Mario:
                                 self.tile.rect.left = tile.rect.right
                                 self.velocity.x = 0
                                 self.pos.x = tile.rect.right
+
+        for enemy in self.enemies:
+            if enemy.tile.rect.colliderect(self.tile.rect):
+                print('enemy collide')
 
     def update(self):
         prev_velocity_x = self.velocity.x
@@ -118,7 +149,7 @@ class Mario:
 
         self.check_falling(self.__visible_tiles)
 
-        print(str(self.pos.x) + ' ' + str(self.pos.y))
+        # print(str(self.pos.x) + ' ' + str(self.pos.y))
 
         # image/animation handling
         if self.velocity.x == 0:

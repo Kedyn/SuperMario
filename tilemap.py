@@ -79,11 +79,6 @@ class TileMap:
 
         self.__visible_tiles = []
 
-        mario = self.__info['mario']
-        self.mario = Mario(screen, mario['x'], mario['y'], self.camera,
-                           self.__info['colliding_tiles'], width, height,
-                           mario['images'])
-
         for enemy in self.__info['enemies']:
             new_enemy = Enemy(screen, enemy['x'], enemy['y'],
                               enemy['type'], width, height,
@@ -92,6 +87,12 @@ class TileMap:
             new_enemy.set_max_position(self.total_width, self.total_height)
 
             self.enemies.append(new_enemy)
+
+        mario = self.__info['mario']
+        self.mario = Mario(screen, mario['x'], mario['y'], self.camera,
+                           self.__info['colliding_tiles'], width, height,
+                           self.interacting_tiles, self.enemies,
+                           mario['images'])
 
         self.last_camera_x = -1
         self.last_camera_y = -1

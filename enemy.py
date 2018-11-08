@@ -14,7 +14,7 @@ class Enemy:
 
         self.__visible_tiles = []
 
-        self.ticks = pygame.time.get_ticks()
+        self.frame = 0
 
     def set_visible_tiles(self, visible_tiles):
         self.__visible_tiles = visible_tiles
@@ -24,11 +24,14 @@ class Enemy:
         self.total_height = total_height
 
     def update(self):
-        if self.enemy_type == "goomba":
-            if self.tile.image is self.tile.images["goomba_two"]:
-                self.tile.image = self.tile.images["goomba_one"]
-            else:
-                self.tile.image = self.tile.images["goomba_two"]
+        self.frame += 1
+
+        if self.frame % 30 == 0:
+            if self.enemy_type == "goomba":
+                if self.tile.image is self.tile.images["goomba_two"]:
+                    self.tile.image = self.tile.images["goomba_one"]
+                else:
+                    self.tile.image = self.tile.images["goomba_two"]
 
     def render(self, x, y):
         self.tile.render(x, y)
