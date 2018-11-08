@@ -78,8 +78,8 @@ class TileMap:
 
         for enemy in self.__info['enemies']:
             new_enemy = Enemy(screen, enemy['x'], enemy['y'],
-                              enemy['type'], width, height,
-                              enemy['images'])
+                              enemy['type'], self.__info['colliding_tiles'],
+                              width, height, enemy['images'])
 
             new_enemy.set_max_position(self.total_width, self.total_height)
 
