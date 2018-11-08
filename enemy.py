@@ -4,14 +4,14 @@ from tile import Tile
 
 
 class Enemy:
-    def __init__(self, screen, x, y, enemy_type, width, height, images=[]):
+    def __init__(self, screen, x, y, enemy_type, colliding_tiles, width, height, images=[]):
         self.tile = Tile(screen, 0, 0, '', width, height, images)
 
         self.enemy_type = enemy_type
 
         self.tile.rect.x = x
         self.tile.rect.y = y
-
+        self.colliding_tiles = colliding_tiles
         self.__visible_tiles = []
 
         self.frame = 0
