@@ -114,8 +114,8 @@ class TileMap:
         elif self.camera.right > self.total_width:
             self.camera.right = self.total_width
 
-        if last_x > self.camera.left:
-            self.camera.left = last_x
+        #if last_x > self.camera.left:
+        #    self.camera.left = last_x
 
         min_x = max(int(self.camera.left / self.tile.width) - 1, 0)
         max_x = min(math.ceil(self.camera.right / self.tile.width),

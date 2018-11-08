@@ -17,6 +17,9 @@ class Enemy:
         self.frame = 0
         self.active = False
         self.movement_factor = -1
+        self.ground_rect = pygame.Rect(self.tile.rect.x, self.tile.rect.y,
+                                       width, height)
+        self.ground_rect.top = self.tile.rect.bottom
 
     def set_visible_tiles(self, visible_tiles):
         self.__visible_tiles = visible_tiles
@@ -26,22 +29,32 @@ class Enemy:
         self.total_height = total_height
 
     def update(self):
-
-        for tile in self.__visible_tiles:
-            if tile.tile_type in self.colliding_tiles:
-                if self.tile.rect.bottom != tile.rect.top:
-                    if self.tile.rect.colliderect(tile.rect):
-                        self.flip()
-
-
-
-
-
-
-
         if self.active:
+            on_ground = False
+
+            for tile in self.__visible_tiles:
+                if tile.tile_type in self.colliding_tiles:
+                    if self.tile.rect.bottom != tile.rect.top:
+                        if self.tile.rect.colliderect(tile.rect):
+                            if self.movement_factor < 0:
+                                self.tile.rect.left = tile.rect.right
+                            elif self.movement_factor > 0:
+                                self.tile.rect.right = tile.rect.left
+
+                            self.flip()
+
+                    if self.ground_rect.top == tile.rect.top:
+                        if self.ground_rect.colliderect(tile.rect):
+                            on_ground = True
+
             self.frame += 1
             self.tile.rect.x += self.movement_factor
+
+            if not on_ground:
+                self.tile.rect.y += 1
+
+            self.ground_rect.top = self.tile.rect.bottom
+            self.ground_rect.x = self.tile.rect.x
 
             if self.frame % 30 == 0:
                 if self.enemy_type == "goomba":
@@ -51,7 +64,8 @@ class Enemy:
                         self.tile.image = self.tile.images["goomba_two"]
 
     def render(self, x, y):
-        self.tile.render(x, y)
+        if self.active:
+            self.tile.render(x, y)
 
     def flip(self):
         self.movement_factor *= -1

@@ -182,7 +182,7 @@
         {
             "type": "koopa",
             "x": 3424,
-            "y": 369,
+            "y": 368,
             "images": ["assets/images/enemies/koopa/koopa_left_one.png","assets/images/enemies/koopa/koopa_left_two.png","assets/images/enemies/koopa/koopa_right_one.png","assets/images/enemies/koopa/koopa_right_two.png","assets/images/enemies/koopa/shell_without_legs.png","assets/images/enemies/koopa/shell_with_legs.png"]
         }
     ]
