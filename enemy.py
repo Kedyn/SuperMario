@@ -16,6 +16,7 @@ class Enemy:
 
         self.frame = 0
         self.active = False
+        self.movement_factor = -1
 
     def set_visible_tiles(self, visible_tiles):
         self.__visible_tiles = visible_tiles
@@ -25,9 +26,22 @@ class Enemy:
         self.total_height = total_height
 
     def update(self):
+
+        for tile in self.__visible_tiles:
+            if tile.tile_type in self.colliding_tiles:
+                if self.tile.rect.bottom != tile.rect.top:
+                    if self.tile.rect.colliderect(tile.rect):
+                        self.flip()
+
+
+
+
+
+
+
         if self.active:
             self.frame += 1
-            self.tile.rect.x += -1
+            self.tile.rect.x += self.movement_factor
 
             if self.frame % 30 == 0:
                 if self.enemy_type == "goomba":
@@ -38,3 +52,6 @@ class Enemy:
 
     def render(self, x, y):
         self.tile.render(x, y)
+
+    def flip(self):
+        self.movement_factor *= -1
