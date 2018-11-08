@@ -67,16 +67,7 @@ class Mario:
     def jump(self):
         self.velocity.y = -self.mario_jump_height
 
-    def check_falling(self, tiles):
-        for tile in tiles:
-            if tile.tile_type in self.colliding_tiles:
-                if self.tile.rect.colliderect(tile.rect):
-                    if self.tile.rect.bottom >= tile.rect.top:
-                        self.velocity.y = 0
-                        self.pos.y = tile.rect.top - self.tile.rect.height
-                        self.tile.rect.bottom = tile.rect.top
-                        break
-
+    def check_horizontal_tiles(self, tiles):
         if self.velocity.x != 0:
             for tile in tiles:
                 if tile.tile_type in self.colliding_tiles:
@@ -88,15 +79,27 @@ class Mario:
                                 self.velocity.x = 0
                                 self.pos.x = tile.rect.left - \
                                     self.tile.rect.width
+                                break
                             elif self.velocity.x < 0 and \
                                     tile.rect.x < self.tile.rect.x:
                                 self.tile.rect.left = tile.rect.right
                                 self.velocity.x = 0
                                 self.pos.x = tile.rect.right
+                                break
 
-        for enemy in self.enemies:
-            if enemy.tile.rect.colliderect(self.tile.rect):
-                print('enemy collide')
+    def check_falling(self, tiles):
+        for tile in tiles:
+            if tile.tile_type in self.colliding_tiles:
+                if self.tile.rect.colliderect(tile.rect):
+                    if self.tile.rect.bottom >= tile.rect.top:
+                        self.velocity.y = 0
+                        self.pos.y = tile.rect.top - self.tile.rect.height
+                        self.tile.rect.bottom = tile.rect.top
+                        break
+
+        # for enemy in self.enemies:
+        #    if enemy.tile.rect.colliderect(self.tile.rect):
+        #        print('enemy collide')
 
     def update(self):
         prev_velocity_x = self.velocity.x
@@ -120,7 +123,12 @@ class Mario:
         self.pos += self.velocity + 0.5 * self.acc
 
         self.tile.rect.x = self.pos.x
+
+        self.check_horizontal_tiles(self.__visible_tiles)
+
         self.tile.rect.y = self.pos.y
+
+        self.check_falling(self.__visible_tiles)
 
         """collision for y coordinate"""
         # if self.velocity.y > 0:
@@ -146,8 +154,6 @@ class Mario:
         elif self.tile.rect.right > self.camera.right:
             self.tile.rect.right = self.camera.right
             self.velocity.x = 0
-
-        self.check_falling(self.__visible_tiles)
 
         # print(str(self.pos.x) + ' ' + str(self.pos.y))
 
