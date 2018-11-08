@@ -38,6 +38,12 @@ class MenuScene(Scene):
 
         self.level = Level('assets/levels/level1.json', director.screen)
 
+        self.cursor_image = pygame.image.load("assets/images/menu_assets/shroom_selector.png")
+        self.cursor_image = pygame.transform.scale(self.cursor_image, (25, 20))
+
+        self.on_play = False
+        self.on_highscore = False
+
     def mousebuttondown(self, button, point):
         self.mouse_on = None
 
@@ -56,8 +62,12 @@ class MenuScene(Scene):
 
         if self.play.rect.collidepoint(point):
             self.mouse_on = self.play
+            self.on_play = True
+            self.on_highscore = False
         elif self.high_score.rect.collidepoint(point):
             self.mouse_on = self.high_score
+            self.on_play = False
+            self.on_highscore = True
 
     def render(self):
         self.director.screen.fill(self.background)
@@ -74,3 +84,9 @@ class MenuScene(Scene):
         self.high_score.render()
 
         self.screen.blit(self.game_logo, (64, 64))
+
+
+        if self.on_play:
+            self.screen.blit(self.cursor_image, (165, 292))  # play cursor
+        elif self.on_highscore:
+            self.screen.blit(self.cursor_image, (165, 322))  # high score cursor
