@@ -135,7 +135,7 @@ class TileMap:
 
         for enemy in self.enemies:
             if enemy.active is False and \
-                    self.camera.colliderect(enemy.rect):
+                    self.camera.colliderect(enemy.tile.rect):
                 enemy.active = True
 
             enemy.update()
