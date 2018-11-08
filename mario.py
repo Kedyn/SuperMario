@@ -26,16 +26,17 @@ class Mario:
         self.ticks = pygame.time.get_ticks()
 
         #  stuff i added
-        self.mario_gravity = 0.3
+        self.mario_gravity = .8
         self.mario_acceleration = 0.6
         self.mario_friction = -0.08
-        self.mario_jump_height = 9.3
+        self.mario_jump_height = 15.7
         self.keys = []
         self.acc = vec(0, self.mario_gravity)  # mario acceleration
         self.pos = vec(x, y)
         self.jumping = False
         self.falling = False
         self.jump_count = 0
+        self.max_jump_allowed = 2
         self.tile.rect.x = self.pos.x
         self.tile.rect.y = self.pos.y
 
@@ -49,10 +50,12 @@ class Mario:
 
         # stuff i added
         self.jumping = False
-        if key == pygame.K_SPACE:
-            print('jump = ' + str(self.jump_count))
-            if self.jump_count <= 10:
-                self.jump()
+        self.jump_count += 1
+        if self.jump_count < self.max_jump_allowed:
+            if key == pygame.K_SPACE:
+                print('jump = ' + str(self.jump_count))
+                if self.jump_count <= 10:
+                    self.jump()
 
     def keyup(self, key):
         self.jumping = True
@@ -103,9 +106,9 @@ class Mario:
                         self.velocity.y = 0
                         self.pos.y = tile.rect.top - self.tile.rect.height
                         self.tile.rect.bottom = tile.rect.top
-                        self.falling = True
+                        self.falling = False
+                        self.jump_count = 0
                         break
-
         # for enemy in self.enemies:
         #    if enemy.tile.rect.colliderect(self.tile.rect):
         #        print('enemy collide')
@@ -114,7 +117,7 @@ class Mario:
         prev_velocity_x = self.velocity.x
 
         self.acc.x = 0
-        self.falling = False
+        self.falling = True
 
         print('position is --->' + str(self.velocity))
         # stuff i added
@@ -131,6 +134,8 @@ class Mario:
         self.velocity += self.acc
         if abs(self.velocity.x) < 0.55:
             self.velocity.x = 0
+        if abs(self.velocity.y) < 0.55:  # i added this
+            self.velocity.y = 0
         self.pos += self.velocity + 0.5 * self.acc
 
         self.tile.rect.x = self.pos.x
@@ -153,8 +158,6 @@ class Mario:
         elif self.tile.rect.bottom > self.camera.bottom:
             self.he_dead = True
             print(str(self.he_dead))
-
-
 
         # image/animation handling
         if self.velocity.x == 0:
