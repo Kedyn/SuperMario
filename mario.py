@@ -91,11 +91,18 @@ class Mario:
         for tile in tiles:
             if tile.tile_type in self.colliding_tiles:
                 if self.tile.rect.colliderect(tile.rect):
+                    if self.tile.rect.top > tile.rect.top:
+                        print('bottom collide')
+                        self.tile.rect.top = tile.rect.bottom
+                        self.velocity.y *= -1
+                        self.jump_cut()
+                        break
                     if self.tile.rect.bottom >= tile.rect.top:
                         self.velocity.y = 0
                         self.pos.y = tile.rect.top - self.tile.rect.height
                         self.tile.rect.bottom = tile.rect.top
                         break
+
 
         # for enemy in self.enemies:
         #    if enemy.tile.rect.colliderect(self.tile.rect):
