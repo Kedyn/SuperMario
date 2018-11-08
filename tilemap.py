@@ -33,23 +33,33 @@ class TileMap:
         self.mario = None
 
         mario = self.__info['mario']
+        images = self.__info['images']
 
         interacting_tiles = self.__info['interacting_tiles']
+
+        self.flag = self.flag = Tile(screen, 0, 0, 'f', width, height,
+                                     ['assets/images/map_assets' +
+                                      '/dynamic/pole/flag.png'])
+
+        top_of_pole = self.__info['finish']
 
         for row, data_row in enumerate(self.__info['map']):
             row_contents = []
 
             for col, data_col in enumerate(data_row):
-                    if self.__info['images'][data_col]:
+                    if images[data_col]:
                         row_contents.append(Tile(screen, row, col,
                                                  data_col,
                                                  width,
                                                  height,
-                                                 self.__info['images']
-                                                 [data_col]))
+                                                 images[data_col]))
                         if data_col in interacting_tiles:
                             self.interacting_tiles.append(InteractiveTile(
                                                             row_contents[-1]))
+                        elif data_col is top_of_pole:
+                            head = row_contents[-1]
+                            self.flag.rect.top = head.rect.bottom
+                            self.flag.rect.right = head.rect.centerx
                     else:
                         row_contents.append(Tile(screen, row, col, data_col,
                                                  width, height))
@@ -142,3 +152,5 @@ class TileMap:
             enemy.render(x, y)
 
         self.mario.render(x, y)
+
+        self.flag.render(x, y)

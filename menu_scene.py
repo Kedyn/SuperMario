@@ -38,8 +38,10 @@ class MenuScene(Scene):
 
         self.level = Level('assets/levels/level1.json', director.screen)
 
-        self.cursor_image = pygame.image.load("assets/images/menu_assets/shroom_selector.png")
-        self.cursor_image = pygame.transform.scale(self.cursor_image, (25, 20))
+        self.cursor_image = pygame.image.load(
+            "assets/images/consumables/mushroom.png")
+        self.cursor_image = pygame.transform.scale(self.cursor_image,
+                                                   (25, self.play.rect.height))
 
         self.on_play = False
         self.on_highscore = False
@@ -85,8 +87,7 @@ class MenuScene(Scene):
 
         self.screen.blit(self.game_logo, (64, 64))
 
-
         if self.on_play:
-            self.screen.blit(self.cursor_image, (165, 292))  # play cursor
+            self.screen.blit(self.cursor_image, (165, self.play.rect.y))  # play cursor
         elif self.on_highscore:
-            self.screen.blit(self.cursor_image, (165, 322))  # high score cursor
+            self.screen.blit(self.cursor_image, (165, self.high_score.rect.y))  # high score cursor
