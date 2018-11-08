@@ -134,6 +134,10 @@ class TileMap:
         self.mario.update()
 
         for enemy in self.enemies:
+            if enemy.active is False and \
+                    self.camera.colliderect(enemy.rect):
+                enemy.active = True
+
             enemy.update()
 
         for tile in self.interacting_tiles:
@@ -151,6 +155,6 @@ class TileMap:
         for enemy in self.enemies:
             enemy.render(x, y)
 
-        self.mario.render(x, y)
-
         self.flag.render(x, y)
+
+        self.mario.render(x, y)
