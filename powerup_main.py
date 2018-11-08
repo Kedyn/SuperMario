@@ -13,24 +13,39 @@ def run_game():
     flower = Power(screen, 100, 100, "Flower")
     star = Power(screen, 200, 200, "Star")
     brick = Block(screen, 50, 50, "mystery")
-    stair = Block(screen, 75, 75, "stair")
+    brick1 = Block(screen, 100, 100, "mystery")
+    brick2 = Block(screen, 200, 200, "mystery")
     flag = False
+    flag2 = False
+    flag3 = False
 
     while True:
         screen.fill((255, 255, 255))
         brick.update()
+        brick1.update()
+        brick2.update()
         if brick.get_brick_status() and not flag:
             mush.spawn()
             flag = True
+        if brick1.get_brick_status() and not flag2:
+            flower.spawn()
+            flag2 = True
+        if brick2.get_brick_status() and not flag3:
+            star.spawn()
+            flag3 = True
+        if flag2:
+            flower.blitme()
+        if flag3:
+            star.blitme()
+
         star.update()
-        star.blitme()
-        stair.blitme()
         flower.update()
-        flower.blitme()
         mush.update()
         if flag:
             mush.blitme()
         brick.blitme()
+        brick1.blitme()
+        brick2.blitme()
         pygame.display.flip()
         if mush.rect.right >= screenrect.right or mush.rect.left <= screenrect.left:
             mush.flip()
@@ -53,6 +68,8 @@ def run_game():
                     star.is_falling()
                 if event.key == pygame.K_DOWN:
                     brick.hit()
+                    brick1.hit()
+                    brick2.hit()
 
 
 
