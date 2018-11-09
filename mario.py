@@ -43,6 +43,7 @@ class Mario:
 
         self.he_dead = False
         self.reset = False
+        self.top = 0
 
         # self.theme_song = pygame.mixer.Sound("assets/sound/mario_theme_song.ogg")
         self.theme_song = pygame.mixer.music.load("assets/sound/mario_theme_song.ogg")
@@ -134,9 +135,8 @@ class Mario:
     def check_he_died(self, answer):
         if answer:
             pygame.mixer.Sound.play(self.dead_sound)
-        self.he_dead = False
 
-    def update(self):
+    def update_when_alive(self):
         prev_velocity_x = self.velocity.x
 
         self.acc.x = 0
@@ -177,38 +177,53 @@ class Mario:
         elif self.tile.rect.right > self.camera.right:
             self.tile.rect.right = self.camera.right
             self.velocity.x = 0
-        elif self.tile.rect.bottom > self.camera.bottom + 40 and not self.he_dead:
+        elif self.tile.rect.top > self.camera.bottom and not self.he_dead:
             self.velocity.y = -13
             self.he_dead = True
+            self.top = self.tile.rect.top - (self.tile.rect.height * 2)
+            self.tile.image = self.tile.images["dead"]
             # needs to be reset after here
-
-            print(str(self.he_dead))
 
         self.check_he_died(self.he_dead)
 
-        # image/animation handling
-        if self.velocity.x == 0:
-            if self.tile.image != self.tile.images["standing_right"] and \
-                    self.tile.image != self.tile.images["standing_left"]:
-                if prev_velocity_x > 0:
-                    self.tile.image = self.tile.images["standing_right"]
-                else:
-                    self.tile.image = self.tile.images["standing_left"]
-        else:
-            if self.velocity.x > 0:
-                if self.tile.image is self.tile.images["moving_two_right"]:
-                    self.tile.image = self.tile.images["moving_three_right"]
-                elif self.tile.image is self.tile.images["moving_three_right"]:
-                    self.tile.image = self.tile.images["moving_one_right"]
-                else:
-                    self.tile.image = self.tile.images["moving_two_right"]
+        if not self.he_dead:
+            # image/animation handling
+            if self.velocity.x == 0:
+                if self.tile.image != self.tile.images["standing_right"] and \
+                        self.tile.image != self.tile.images["standing_left"]:
+                    if prev_velocity_x > 0:
+                        self.tile.image = self.tile.images["standing_right"]
+                    else:
+                        self.tile.image = self.tile.images["standing_left"]
             else:
-                if self.tile.image is self.tile.images["moving_two_left"]:
-                    self.tile.image = self.tile.images["moving_three_left"]
-                elif self.tile.image is self.tile.images["moving_three_left"]:
-                    self.tile.image = self.tile.images["moving_one_left"]
+                if self.velocity.x > 0:
+                    if self.tile.image is self.tile.images["moving_two_right"]:
+                        self.tile.image = self.tile.images["moving_three_right"]
+                    elif self.tile.image is self.tile.images["moving_three_right"]:
+                        self.tile.image = self.tile.images["moving_one_right"]
+                    else:
+                        self.tile.image = self.tile.images["moving_two_right"]
                 else:
-                    self.tile.image = self.tile.images["moving_two_left"]
+                    if self.tile.image is self.tile.images["moving_two_left"]:
+                        self.tile.image = self.tile.images["moving_three_left"]
+                    elif self.tile.image is self.tile.images["moving_three_left"]:
+                        self.tile.image = self.tile.images["moving_one_left"]
+                    else:
+                        self.tile.image = self.tile.images["moving_two_left"]
+
+    def update(self):
+        if not self.he_dead:
+            print(str(self.he_dead))
+            self.update_when_alive()
+        else:
+            if self.top < self.tile.rect.bottom:
+                self.tile.rect.top -= 7
+            else:
+                if self.tile.rect.top > self.camera.bottom:
+                    print('reset mario')
+                else:
+                    self.tile.rect.top += 7
+                    self.top = self.tile.rect.bottom
 
     def render(self, x, y):
         self.tile.render(x, y)
