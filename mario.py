@@ -43,7 +43,7 @@ class Mario:
 
         self.he_dead = False
         self.reset = False
-        self.top = 0
+        self.top = -1
 
         # self.theme_song = pygame.mixer.Sound("assets/sound/mario_theme_song.ogg")
         self.theme_song = pygame.mixer.music.load("assets/sound/mario_theme_song.ogg")
@@ -180,8 +180,6 @@ class Mario:
         elif self.tile.rect.top > self.camera.bottom and not self.he_dead:
             self.velocity.y = -13
             self.he_dead = True
-            self.top = self.tile.rect.top - (self.tile.rect.height * 2)
-            self.tile.image = self.tile.images["dead"]
             # needs to be reset after here
 
         self.check_he_died(self.he_dead)
@@ -216,6 +214,9 @@ class Mario:
             print(str(self.he_dead))
             self.update_when_alive()
         else:
+            if self.top == -1:
+                self.top = self.tile.rect.top - (self.tile.rect.height * 2)
+                self.tile.image = self.tile.images["dead"]
             if self.top < self.tile.rect.bottom:
                 self.tile.rect.top -= 7
             else:
