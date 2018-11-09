@@ -74,8 +74,7 @@ class Enemy:
 
     def death(self):
         if self.alive:
-            pygame.mixer.music.load('assets/sound/stomp.ogg')
-            pygame.mixer.music.play(0)
+            pygame.mixer.Channel(1).play (pygame.mixer.Sound('assets/sound/stomp.ogg'))
             if self.enemy_type == "goomba":
                 self.tile.image = pygame.image.load('assets/images/enemies/goomba/goombaDead.gif')
                 self.tile.rect.y += 20
