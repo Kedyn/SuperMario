@@ -39,6 +39,7 @@ class Mario:
         self.max_jump_allowed = 2
         self.tile.rect.x = self.pos.x
         self.tile.rect.y = self.pos.y
+        self.has_jumped = False
 
         self.he_dead = False
         self.reset = False
@@ -62,11 +63,12 @@ class Mario:
         self.jumping = False
         self.jump_count += 1
         if self.jump_count < self.max_jump_allowed:
-            if key == pygame.K_SPACE:
-                pygame.mixer.Sound.play(self.smalljump_sound)
-                print('jump = ' + str(self.jump_count))
-                if self.jump_count <= 10:
-                    self.jump()
+            if not self.falling:
+                if key == pygame.K_SPACE:
+                    pygame.mixer.Sound.play(self.smalljump_sound)
+                    print('jump = ' + str(self.jump_count))
+                    if self.jump_count <= 10:
+                        self.jump()
 
     def keyup(self, key):
         self.jumping = True
@@ -176,6 +178,7 @@ class Mario:
         elif self.tile.rect.bottom > self.camera.bottom + 40 and not self.he_dead:
             self.velocity.y = -13
             self.he_dead = True
+            # needs to be reset after here
 
             print(str(self.he_dead))
 
