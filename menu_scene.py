@@ -58,7 +58,7 @@ class MenuScene(Scene):
 
         if self.play.rect.collidepoint(point):
             self.director.set_scene("game")
-            self.reset()
+            pygame.mixer.music.pause()
         elif self.high_score.rect.collidepoint(point):
             self.director.set_scene("scores")
 

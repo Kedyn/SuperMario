@@ -138,7 +138,6 @@ class Mario:
         self.acc.x = 0
         self.falling = True
 
-        print('position is --->' + str(self.velocity))
         # stuff i added
         for key in self.keys:
             if key == pygame.K_LEFT:
@@ -164,7 +163,7 @@ class Mario:
         self.tile.rect.y = self.pos.y
 
         self.check_falling(self.__visible_tiles)
-        print('is he falling? ---> ' + str(self.falling))
+
         # create enemy collision here
 
         # camera stuff
@@ -174,8 +173,10 @@ class Mario:
         elif self.tile.rect.right > self.camera.right:
             self.tile.rect.right = self.camera.right
             self.velocity.x = 0
-        elif self.tile.rect.bottom > self.camera.bottom:
+        elif self.tile.rect.bottom > self.camera.bottom + 40 and not self.he_dead:
+            self.velocity.y = -13
             self.he_dead = True
+
             print(str(self.he_dead))
 
         self.check_he_died(self.he_dead)
