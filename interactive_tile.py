@@ -3,6 +3,12 @@ class InteractiveTile:
         self.tile = tile
 
         self.frame = 0
+        self.bumping = False
+        self.top = False
+        self.complete = False
+        self.max_height = self.tile.rect.y - 7
+        self.origin = self.tile.rect.y
+
 
     def __str__(self):
         return 'Interactive tile type: \'' + self.tile.tile_type + \
@@ -18,3 +24,21 @@ class InteractiveTile:
                     self.tile.image = self.tile.images['mystery_box_dark']
                 else:
                     self.tile.image = self.tile.images['mystery_box_bright']
+
+        if self.bumping:
+            if self.top:
+                self.tile.rect.y += 1
+                if self.tile.rect.y >= self.origin:
+                    self.tile.rect.y = self.origin
+                    self.bumping = False
+                    self.top = False
+                    self.complete = True
+
+            if not self.top:
+                self.tile.rect.y -= 1
+                if self.tile.rect.y <= self.max_height:
+                    self.top = True
+
+    def bump(self):
+        self.bumping = True
+

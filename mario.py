@@ -114,6 +114,7 @@ class Mario:
                             interacting_tile = self.interacting_tiles[
                                 tile.interactive_id]
                             print(interacting_tile)
+                            interacting_tile.bump()
                         pygame.mixer.Sound.play(self.headbump_sound)
                         self.tile.rect.top = tile.rect.bottom
                         self.velocity.y *= -1
