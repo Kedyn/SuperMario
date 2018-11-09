@@ -129,7 +129,7 @@ class Mario:
                 if enemy.alive and self.falling:
                     self.velocity.y = -10
                     enemy.death()
-                else:
+                if enemy.alive and not self.falling:
                     self.he_dead = True
 
     def check_he_died(self, answer):
