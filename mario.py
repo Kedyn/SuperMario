@@ -10,11 +10,11 @@ Use interacting tiles and enemies for collision like visible tiles.
 
 
 class Mario:
-    def __init__(self, screen, x, y, camera, colliding_tiles, width, height,
-                 enemies, images=[]):
+    def __init__(self, screen, x, y, camera, colliding_tiles,
+                 interacting_tiles, width, height, enemies, images=[]):
         self.camera = camera
         self.colliding_tiles = colliding_tiles
-        # self.interacting_tiles = interacting_tiles
+        self.interacting_tiles = interacting_tiles
         self.enemies = enemies
 
         self.tile = Tile(screen, 0, 0, '', width, height, images)  # this is mario
@@ -111,7 +111,7 @@ class Mario:
             if tile.tile_type in self.colliding_tiles:
                 if self.tile.rect.colliderect(tile.rect):
                     if self.tile.rect.top > tile.rect.top:
-                        print('bottom collide')
+                        # self.interacting_tiles[self.interacting_tiles.index(tile)]
                         pygame.mixer.Sound.play(self.headbump_sound)
                         self.tile.rect.top = tile.rect.bottom
                         self.velocity.y *= -1
@@ -124,13 +124,6 @@ class Mario:
                         self.falling = False
                         self.jump_count = 0
                         break
-        for enemy in self.enemies:
-            if enemy.tile.rect.colliderect(self.tile.rect):
-                if enemy.alive and self.falling:
-                    self.velocity.y = -10
-                    enemy.death()
-                if enemy.alive and not self.falling:
-                    self.he_dead = True
 
     def check_he_died(self, answer):
         if answer:
@@ -169,6 +162,13 @@ class Mario:
         self.check_falling(self.__visible_tiles)
 
         # create enemy collision here
+        for enemy in self.enemies:
+            if enemy.tile.rect.colliderect(self.tile.rect):
+                if enemy.alive and self.falling:
+                    self.velocity.y = -10
+                    enemy.death()
+                if enemy.alive and not self.falling:
+                    self.he_dead = True
 
         # camera stuff
         if self.tile.rect.left < self.camera.left:

@@ -96,8 +96,8 @@ class TileMap:
 
         mario = self.__info['mario']
         self.mario = Mario(screen, mario['x'], mario['y'], self.camera,
-                           colliding_tiles_types, width, height,
-                           self.enemies, mario['images'])
+                           colliding_tiles_types, self.interacting_tiles,
+                           width, height, self.enemies, mario['images'])
 
         self.last_camera_x = -1
         self.last_camera_y = -1
