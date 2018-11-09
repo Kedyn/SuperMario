@@ -204,6 +204,8 @@ class Mario:
                         self.tile.image = self.tile.images["moving_one_right"]
                     else:
                         self.tile.image = self.tile.images["moving_two_right"]
+                    if self.acc.x < 0:
+                        self.tile.image = self.tile.images["turning_left"]
                 else:
                     if self.tile.image is self.tile.images["moving_two_left"]:
                         self.tile.image = self.tile.images["moving_three_left"]
@@ -211,6 +213,11 @@ class Mario:
                         self.tile.image = self.tile.images["moving_one_left"]
                     else:
                         self.tile.image = self.tile.images["moving_two_left"]
+                    if self.acc.x > 0:
+                        self.tile.image = self.tile.images["turning_right"]
+
+                #if self.acc.x == 0 and self.velocity.x < 0:
+                #    self.tile.image = self.tile.images["turning_left"]
 
     def update(self):
         if not self.he_dead:
