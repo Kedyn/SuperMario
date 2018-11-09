@@ -126,9 +126,11 @@ class Mario:
                         break
         for enemy in self.enemies:
             if enemy.tile.rect.colliderect(self.tile.rect):
-                if enemy.alive:
+                if enemy.alive and self.falling:
                     self.velocity.y = -10
-                enemy.death()
+                    enemy.death()
+                else:
+                    print("death")
 
     def check_he_died(self, answer):
         if answer:
