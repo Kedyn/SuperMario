@@ -4,7 +4,8 @@ from tile import Tile
 
 
 class Enemy:
-    def __init__(self, screen, x, y, enemy_type, colliding_tiles, width, height, images=[]):
+    def __init__(self, screen, x, y, enemy_type, colliding_tiles, width,
+                 height, images=[]):
         self.tile = Tile(screen, 0, 0, '', width, height, images)
 
         self.enemy_type = enemy_type
@@ -21,7 +22,6 @@ class Enemy:
         self.ground_rect = pygame.Rect(self.tile.rect.x, self.tile.rect.y,
                                        width, height)
         self.ground_rect.top = self.tile.rect.bottom
-
 
     def set_visible_tiles(self, visible_tiles):
         self.__visible_tiles = visible_tiles

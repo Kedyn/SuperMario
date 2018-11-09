@@ -21,6 +21,8 @@ class TileMap:
         self.camera = pygame.Rect(0, 0, self.screen.get_rect().width,
                                   self.screen.get_rect().height)
 
+        map = self.__info['map']
+
         width = self.tile.width
         height = self.tile.height
 
@@ -29,6 +31,15 @@ class TileMap:
 
         self.tiles = []
         self.interacting_tiles = []
+        self.enemies = []
+
+        self.total_tiles_x = len(map[0])
+        self.total_tiles_y = len(map)
+
+        self.total_width = self.total_tiles_x * width
+        self.total_height = self.total_tiles_y * height
+
+        self.__visible_tiles = []
 
         self.mario = None
 
@@ -47,7 +58,10 @@ class TileMap:
 
         colliding_tiles = []
 
-        for row, data_row in enumerate(self.__info['map']):
+        self.eatables_tiles = self.__info['eatables']['tiles']
+        eatables_images = self.__info['eatables']['images']
+
+        for row, data_row in enumerate(map):
             row_contents = []
 
             for col, data_col in enumerate(data_row):
@@ -63,6 +77,19 @@ class TileMap:
                                                             tile))
                             tile.interactive_id = \
                                 len(self.interacting_tiles) - 1
+
+                            if data_col in self.eatables_tiles:
+                                new_enemy = Enemy(screen, col * width,
+                                                  row * height, data_col,
+                                                  colliding_tiles_types,
+                                                  width, height,
+                                                  eatables_images[data_col])
+
+                                new_enemy.set_max_position(self.total_width,
+                                                           self.total_height)
+
+                                self.enemies.append(new_enemy)
+
                         elif data_col is top_of_pole:
                             head = row_contents[-1]
                             self.flag.rect.top = head.rect.bottom
@@ -76,26 +103,17 @@ class TileMap:
 
             self.tiles.append(row_contents)
 
-        self.enemies = []
-
-        self.total_tiles_x = len(self.tiles[0])
-        self.total_tiles_y = len(self.tiles)
-
-        self.total_width = self.total_tiles_x * width
-        self.total_height = self.total_tiles_y * height
-
-        self.__visible_tiles = []
-
         for enemy in self.__info['enemies']:
             new_enemy = Enemy(screen, enemy['x'], enemy['y'],
-                              enemy['type'], self.__info['colliding_tiles'],
+                              enemy['type'], colliding_tiles_types,
                               width, height, enemy['images'])
 
             new_enemy.set_max_position(self.total_width, self.total_height)
 
-            new_enemy.set_visible_tiles(colliding_tiles)
-
             self.enemies.append(new_enemy)
+
+        for enemy in self.enemies:
+            enemy.set_visible_tiles(colliding_tiles)
 
         mario = self.__info['mario']
         self.mario = Mario(screen, mario['x'], mario['y'], self.camera,
@@ -117,8 +135,9 @@ class TileMap:
         elif self.camera.right > self.total_width:
             self.camera.right = self.total_width
 
-        #if last_x > self.camera.left:
-        #    self.camera.left = last_x
+        # camare freedom
+        if last_x > self.camera.left:
+            self.camera.left = last_x
 
         min_x = max(int(self.camera.left / self.tile.width) - 1, 0)
         max_x = min(math.ceil(self.camera.right / self.tile.width),
@@ -145,7 +164,8 @@ class TileMap:
         for enemy in self.enemies:
             if enemy.active is False and \
                     self.camera.colliderect(enemy.tile.rect):
-                enemy.active = True
+                if enemy.enemy_type not in self.eatables_tiles:
+                    enemy.active = True
 
             enemy.update()
 

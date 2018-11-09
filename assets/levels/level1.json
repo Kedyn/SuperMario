@@ -21,6 +21,14 @@
     "colliding_tiles": "12LR[]?!9ZS{}",
     "interacting_tiles": "?!9ZS",
     "finish": "J",
+    "eatables": {
+        "tiles": "!ZS",
+        "images": {
+            "!": ["assets/images/consumables/mushroom.png"],
+            "Z": [],
+            "S": []
+        }
+    },
     "images": {
         ".": [],
         "1": ["assets/images/map_assets/static/floor/rock_floor.png"],
@@ -50,9 +58,9 @@
         "Q": ["assets/images/map_assets/static/castle/mid_top_bricks.png"],
         "T": ["assets/images/map_assets/static/castle/left_bricks.png"],
         "U": ["assets/images/map_assets/static/castle/right_bricks.png"],
-		"?": ["assets/images/map_assets/dynamic/mystery_box/mystery_box_bright.png","assets/images/map_assets/dynamic/mystery_box/mystery_box_normal.png","assets/images/map_assets/dynamic/mystery_box/mystery_box_dark.png"],
-		"!": ["assets/images/map_assets/dynamic/mystery_box/mystery_box_bright.png","assets/images/map_assets/dynamic/mystery_box/mystery_box_normal.png","assets/images/map_assets/dynamic/mystery_box/mystery_box_dark.png"],
-		"S": ["assets/images/map_assets/dynamic/mystery_box/mystery_box_bright.png","assets/images/map_assets/dynamic/mystery_box/mystery_box_normal.png","assets/images/map_assets/dynamic/mystery_box/mystery_box_dark.png"],
+		"?": ["assets/images/map_assets/dynamic/mystery_box/mystery_box_bright.png","assets/images/map_assets/dynamic/mystery_box/mystery_box_normal.png","assets/images/map_assets/dynamic/mystery_box/mystery_box_dark.png","assets/images/map_assets/dynamic/mystery_box/mystery_box_used.png"],
+		"!": ["assets/images/map_assets/dynamic/mystery_box/mystery_box_bright.png","assets/images/map_assets/dynamic/mystery_box/mystery_box_normal.png","assets/images/map_assets/dynamic/mystery_box/mystery_box_dark.png","assets/images/map_assets/dynamic/mystery_box/mystery_box_used.png"],
+		"S": ["assets/images/map_assets/dynamic/mystery_box/mystery_box_bright.png","assets/images/map_assets/dynamic/mystery_box/mystery_box_normal.png","assets/images/map_assets/dynamic/mystery_box/mystery_box_dark.png","assets/images/map_assets/dynamic/mystery_box/mystery_box_used.png"],
         "L": ["assets/images/map_assets/static/pipes/pipe_vertical_left.png"],
         "R": ["assets/images/map_assets/static/pipes/pipe_vertical_right.png"],
         "[": ["assets/images/map_assets/static/pipes/pipe_vertical_left_opening.png"],
