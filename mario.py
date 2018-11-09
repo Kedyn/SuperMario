@@ -45,6 +45,8 @@ class Mario:
         self.reset = False
         self.top = -1
 
+        self.prev_x = 0
+
         # self.theme_song = pygame.mixer.Sound("assets/sound/mario_theme_song.ogg")
         self.theme_song = pygame.mixer.music.load("assets/sound/mario_theme_song.ogg")
         self.smalljump_sound = pygame.mixer.Sound("assets/sound/small_jump.ogg")
@@ -82,7 +84,14 @@ class Mario:
                 self.velocity.y = -1
 
     def jump(self):
+        velocity_x = self.velocity.x
+        if self.velocity.x == 0:
+            if self.tile.image is self.tile.images["standing_right"]:
+                velocity_x = 1
+            else:
+                velocity_x = -1
         self.velocity.y = -self.mario_jump_height
+        self.prev_x = velocity_x
 
     def check_horizontal_tiles(self, tiles):
         if self.velocity.x != 0:
@@ -125,6 +134,7 @@ class Mario:
                         self.pos.y = tile.rect.top - self.tile.rect.height
                         self.tile.rect.bottom = tile.rect.top
                         self.falling = False
+                        # self.prev_x = 0
                         self.jump_count = 0
                         break
 
@@ -192,10 +202,13 @@ class Mario:
             if self.velocity.x == 0:
                 if self.tile.image != self.tile.images["standing_right"] and \
                         self.tile.image != self.tile.images["standing_left"]:
-                    if prev_velocity_x > 0:
-                        self.tile.image = self.tile.images["standing_right"]
-                    else:
-                        self.tile.image = self.tile.images["standing_left"]
+                    if (self.tile.image is not self.tile.images["jumping_right"] and \
+                            self.tile.image is not self.tile.images["jumping_left"]) or not self.falling:
+                        if prev_velocity_x > 0 or self.prev_x > 0:
+                            self.tile.image = self.tile.images["standing_right"]
+                            self.prev_x = 0
+                        else:
+                            self.tile.image = self.tile.images["standing_left"]
             else:
                 if self.velocity.x > 0:
                     if self.tile.image is self.tile.images["moving_two_right"]:
@@ -216,7 +229,13 @@ class Mario:
                     if self.acc.x > 0:
                         self.tile.image = self.tile.images["turning_right"]
 
-                #if self.acc.x == 0 and self.velocity.x < 0:
+            if self.velocity.y < 0:
+                if self.prev_x > 0:
+                    self.tile.image = self.tile.images["jumping_right"]
+                else:  # self.prev_x != 0:
+                    self.tile.image = self.tile.images["jumping_left"]
+
+                # if self.acc.x == 0 and self.velocity.x < 0:
                 #    self.tile.image = self.tile.images["turning_left"]
 
     def update(self):
