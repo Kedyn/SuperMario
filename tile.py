@@ -6,6 +6,8 @@ class Tile:
         self.screen = screen
         self.tile_type = tile_type
 
+        self.interactive_id = -1
+
         self.images = {}
 
         for image in images:

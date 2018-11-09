@@ -67,7 +67,6 @@ class Mario:
             if not self.falling:
                 if key == pygame.K_SPACE:
                     pygame.mixer.Sound.play(self.smalljump_sound)
-                    print('jump = ' + str(self.jump_count))
                     if self.jump_count <= 10:
                         self.jump()
 
@@ -111,7 +110,10 @@ class Mario:
             if tile.tile_type in self.colliding_tiles:
                 if self.tile.rect.colliderect(tile.rect):
                     if self.tile.rect.top > tile.rect.top:
-                        # self.interacting_tiles[self.interacting_tiles.index(tile)]
+                        if tile.interactive_id != -1:
+                            interacting_tile = self.interacting_tiles[
+                                tile.interactive_id]
+                            print(interacting_tile)
                         pygame.mixer.Sound.play(self.headbump_sound)
                         self.tile.rect.top = tile.rect.bottom
                         self.velocity.y *= -1
@@ -211,7 +213,6 @@ class Mario:
 
     def update(self):
         if not self.he_dead:
-            print(str(self.he_dead))
             self.update_when_alive()
         else:
             if self.top == -1:

@@ -3,6 +3,11 @@ class InteractiveTile:
         self.tile = tile
 
         self.frame = 0
+
+    def __str__(self):
+        return 'Interactive tile type: \'' + self.tile.tile_type + \
+            '\' Rect: ' + str(self.tile.rect)
+
     def update(self):
         self.frame += 1
         if self.frame % 10 == 0:

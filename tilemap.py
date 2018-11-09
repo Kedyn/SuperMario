@@ -58,8 +58,11 @@ class TileMap:
                                                  height,
                                                  images[data_col]))
                         if data_col in interacting_tiles:
+                            tile = row_contents[-1]
                             self.interacting_tiles.append(InteractiveTile(
-                                                            row_contents[-1]))
+                                                            tile))
+                            tile.interactive_id = \
+                                len(self.interacting_tiles) - 1
                         elif data_col is top_of_pole:
                             head = row_contents[-1]
                             self.flag.rect.top = head.rect.bottom
