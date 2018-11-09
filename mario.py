@@ -41,6 +41,16 @@ class Mario:
         self.tile.rect.y = self.pos.y
 
         self.he_dead = False
+        self.reset = False
+
+        # self.theme_song = pygame.mixer.Sound("assets/sound/mario_theme_song.ogg")
+        self.theme_song = pygame.mixer.music.load("assets/sound/mario_theme_song.ogg")
+        self.smalljump_sound = pygame.mixer.Sound("assets/sound/small_jump.ogg")
+        self.bigjump_sound = pygame.mixer.Sound("assets/sound/big_jump.ogg")
+        self.headbump_sound = pygame.mixer.Sound("assets/sound/bump.ogg")
+        self.stomp_sound = pygame.mixer.Sound("assets/sound/stomp.ogg")
+        self.dead_sound = pygame.mixer.Sound("assets/sound/dead_sound.ogg")
+        self.game_over_sound = pygame.mixer.Sound("assets/sound/game_over_sound.ogg")
 
     def set_visible_tiles(self, visible_tiles):
         self.__visible_tiles = visible_tiles
@@ -53,6 +63,7 @@ class Mario:
         self.jump_count += 1
         if self.jump_count < self.max_jump_allowed:
             if key == pygame.K_SPACE:
+                pygame.mixer.Sound.play(self.smalljump_sound)
                 print('jump = ' + str(self.jump_count))
                 if self.jump_count <= 10:
                     self.jump()
@@ -98,6 +109,7 @@ class Mario:
                 if self.tile.rect.colliderect(tile.rect):
                     if self.tile.rect.top > tile.rect.top:
                         print('bottom collide')
+                        pygame.mixer.Sound.play(self.headbump_sound)
                         self.tile.rect.top = tile.rect.bottom
                         self.velocity.y *= -1
                         self.jump_cut()
@@ -115,6 +127,10 @@ class Mario:
                     self.velocity.y = -10
                 enemy.death()
 
+    def check_he_died(self, answer):
+        if answer:
+            pygame.mixer.Sound.play(self.dead_sound)
+        self.he_dead = False
 
     def update(self):
         prev_velocity_x = self.velocity.x
@@ -161,6 +177,8 @@ class Mario:
         elif self.tile.rect.bottom > self.camera.bottom:
             self.he_dead = True
             print(str(self.he_dead))
+
+        self.check_he_died(self.he_dead)
 
         # image/animation handling
         if self.velocity.x == 0:
