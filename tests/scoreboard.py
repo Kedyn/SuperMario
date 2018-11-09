@@ -65,3 +65,6 @@ class Score:
 
     def add_coins(self, value):
         self.coins += value
+
+    def sub_live(self):
+        self.lives_surface -= 1
