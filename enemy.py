@@ -83,5 +83,7 @@ class Enemy:
                 pygame.mixer.Channel(1).play(pygame.mixer.Sound('assets/sound/kick.ogg'))
                 self.tile.image = pygame.image.load('assets/images/enemies/koopa/shell.gif')
                 self.tile.rect.y += 20
-
+                self.enemy_type = "shell"
             self.alive = False
+
+
