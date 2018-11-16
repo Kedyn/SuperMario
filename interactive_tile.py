@@ -1,6 +1,3 @@
-from tile import Tile
-
-
 class InteractiveTile:
     def __init__(self, tile):
         self.tile = tile

@@ -12,7 +12,7 @@ class Mario:
         self.colliding_tiles = colliding_tiles
         self.interacting_tiles = interacting_tiles
         self.enemies = enemies
-        
+
         self.tile = Tile(screen, 0, 0, '', width, height, images)  # this is mario
 
         self.velocity = vec(0, 0)  # velocity of mario
