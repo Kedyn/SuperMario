@@ -182,8 +182,8 @@ class TileMap:
                         tile.interactive_id]
                     if interactive_tile.interactive_tile_action:
                         interactive_tile.interactive_tile.render(x, y)
-                    else:
-                        tile.render(x, y)
+
+                    tile.render(x, y)
                 else:
                     tile.render(x, y)
 

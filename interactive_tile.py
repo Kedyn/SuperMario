@@ -60,10 +60,14 @@ class InteractiveTile:
                         self.top = True
         elif self.interactive_tile_action:
             if not self.interactive_tile_free:
-                if self.tile.rect.top != self.interactive_tile.rect.top:
+                if self.tile.rect.top != self.interactive_tile.rect.bottom:
                     self.interactive_tile.rect.y -= 1
                 else:
                     self.interactive_tile_free = True
+            else:
+                # self.interactive_tile is my shroom
+                # self.interactive_tile.y += .8
+                pass
 
     def bump(self):
         if not self.complete:
