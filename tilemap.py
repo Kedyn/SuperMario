@@ -79,16 +79,14 @@ class TileMap:
                                 len(self.interacting_tiles) - 1
 
                             if data_col in self.eatables_tiles:
-                                new_enemy = Enemy(screen, col * width,
-                                                  row * height, data_col,
-                                                  colliding_tiles_types,
-                                                  width, height,
-                                                  eatables_images[data_col])
+                                interacting_tile = Tile(screen, row, col,
+                                                        data_col, width,
+                                                        height,
+                                                        eatables_images[
+                                                            data_col])
 
-                                new_enemy.set_max_position(self.total_width,
-                                                           self.total_height)
-
-                                self.enemies.append(new_enemy)
+                                self.interacting_tiles[-1].interactive_tile \
+                                    = interacting_tile
 
                         elif data_col is top_of_pole:
                             head = row_contents[-1]
@@ -179,7 +177,15 @@ class TileMap:
         self.screen.fill((92, 150, 252))
         for tile in self.__visible_tiles:
             if tile:
-                tile.render(x, y)
+                if tile.interactive_id is not -1:
+                    interactive_tile = self.interacting_tiles[
+                        tile.interactive_id]
+                    if interactive_tile.interactive_tile_action:
+                        interactive_tile.interactive_tile.render(x, y)
+                    else:
+                        tile.render(x, y)
+                else:
+                    tile.render(x, y)
 
         for enemy in self.enemies:
             enemy.render(x, y)

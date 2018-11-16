@@ -4,10 +4,6 @@ from tile import Tile
 
 vec = pygame.math.Vector2
 
-'''
-Use interacting tiles and enemies for collision like visible tiles.
-'''
-
 
 class Mario:
     def __init__(self, screen, x, y, camera, colliding_tiles,
@@ -16,7 +12,7 @@ class Mario:
         self.colliding_tiles = colliding_tiles
         self.interacting_tiles = interacting_tiles
         self.enemies = enemies
-        #this is just a test sdf yep OHHHH SHIT
+        
         self.tile = Tile(screen, 0, 0, '', width, height, images)  # this is mario
 
         self.velocity = vec(0, 0)  # velocity of mario
